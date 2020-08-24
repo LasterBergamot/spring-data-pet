@@ -9,9 +9,8 @@ spring:
     password: admin
     initializtaion-mode: always
 #    initialize: true
-#    schema: classpath:/schema-postgres.sql
+    schema: classpath:/schema.sql
 #    continue-on-error: true
-    platform: postgres
   jpa:
     hibernate:
       ddl-auto: none
