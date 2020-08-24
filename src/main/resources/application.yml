@@ -1,6 +1,7 @@
 server:
   port: 8080
 
+# user local PostgreSQL, the Docker version is now working yet
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/spring-data-pet
