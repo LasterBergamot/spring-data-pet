@@ -5,5 +5,5 @@ import com.pet.springdata.model.trivia.TriviaDTO;
 import java.util.List;
 
 public interface OpenTriviaDatabaseService {
-    List<TriviaDTO> getTrivia();
+    List<TriviaDTO> getTrivia(Integer numberOfTrivia);
 }

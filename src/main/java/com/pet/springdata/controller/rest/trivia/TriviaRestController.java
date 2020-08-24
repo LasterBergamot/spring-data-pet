@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class TriviaRestController {
     }
 
     @GetMapping("/trivia")
-    public List<TriviaDTO> getTrivia() {
-        LOG.info("Getting all Trivia.");
-        return openTriviaDatabaseService.getTrivia();
+    public List<TriviaDTO> getTrivia(@RequestParam(name = "numberOfTrivia") Integer numberOfTrivia) {
+        LOG.info("Getting {} Trivia.", numberOfTrivia);
+        return openTriviaDatabaseService.getTrivia(numberOfTrivia);
     }
 }

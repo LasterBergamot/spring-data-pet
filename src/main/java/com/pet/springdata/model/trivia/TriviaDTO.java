@@ -17,7 +17,7 @@ public class TriviaDTO {
     public TriviaDTO() {}
 
     @JsonCreator
-    public TriviaDTO(@JsonProperty("property") String category, @JsonProperty("type") String type, @JsonProperty("difficulty") String difficulty, @JsonProperty("question") String question,
+    public TriviaDTO(@JsonProperty("category") String category, @JsonProperty("type") String type, @JsonProperty("difficulty") String difficulty, @JsonProperty("question") String question,
                      @JsonProperty("correct_answer") String correctAnswer, @JsonProperty("incorrect_answers") List<String> incorrectAnswers) {
         this.category = category;
         this.type = type;

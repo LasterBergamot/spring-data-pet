@@ -1,26 +1,28 @@
 package com.pet.springdata.service.trivia.impl;
 
 import com.pet.springdata.model.trivia.OpenTriviaDatabaseResponse;
+import com.pet.springdata.model.trivia.OpenTriviaDatabaseToken;
 import com.pet.springdata.model.trivia.TriviaDTO;
 import com.pet.springdata.service.trivia.OpenTriviaDatabaseService;
+import com.pet.springdata.util.trivia.TriviaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.HtmlUtils;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
+
+import static com.pet.springdata.util.Constants.EMPTY_STRING;
+import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_API_URL;
+import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_TOKEN_URL;
 
 @Service
 public class TriviaService implements OpenTriviaDatabaseService {
 
     private static final Logger LOG = LoggerFactory.getLogger(TriviaService.class);
-
-    private static final String OPEN_TRIVIA_DB_API_URL = "https://opentdb.com/api.php?amount=%s";
-
-    private static final int NUMBER_OF_TRIVIA = 10;
 
     private final RestTemplate restTemplate;
 
@@ -30,25 +32,24 @@ public class TriviaService implements OpenTriviaDatabaseService {
     }
 
     @Override
-    public List<TriviaDTO> getTrivia() {
-        LOG.info("Getting all Trivia.");
-        OpenTriviaDatabaseResponse openTriviaDatabaseResponse = restTemplate.getForObject(String.format(OPEN_TRIVIA_DB_API_URL, NUMBER_OF_TRIVIA), OpenTriviaDatabaseResponse.class);
+    public List<TriviaDTO> getTrivia(Integer numberOfTrivia) {
+        LOG.info("Getting {} Trivia.", numberOfTrivia);
+        Optional<OpenTriviaDatabaseToken> optionalOpenTriviaDatabaseToken = Optional.ofNullable(
+                restTemplate.getForObject(OPEN_TRIVIA_DB_TOKEN_URL, OpenTriviaDatabaseToken.class)
+        );
 
-        return unescapeHtmlTagsOfAllTrivia(openTriviaDatabaseResponse.getResults());
-    }
+        String token = optionalOpenTriviaDatabaseToken
+                .map(OpenTriviaDatabaseToken::getToken)
+                .orElse(EMPTY_STRING);
 
-    private List<TriviaDTO> unescapeHtmlTagsOfAllTrivia(List<TriviaDTO> results) {
-        return results.stream().map(this::unescapeHtmlTagsOfTrivia).collect(Collectors.toList());
-    }
+        Optional<OpenTriviaDatabaseResponse> optionalOpenTriviaDatabaseResponse = Optional.ofNullable(
+                restTemplate.getForObject(String.format(OPEN_TRIVIA_DB_API_URL, numberOfTrivia, token), OpenTriviaDatabaseResponse.class)
+        );
 
-    private TriviaDTO unescapeHtmlTagsOfTrivia(TriviaDTO result) {
-        result.setCategory(HtmlUtils.htmlUnescape(result.getCategory()));
-        result.setType(HtmlUtils.htmlUnescape(result.getType()));
-        result.setDifficulty(HtmlUtils.htmlUnescape(result.getDifficulty()));
-        result.setQuestion(HtmlUtils.htmlUnescape(result.getQuestion()));
-        result.setCorrectAnswer(HtmlUtils.htmlUnescape(result.getCorrectAnswer()));
-        result.setIncorrectAnswers(result.getIncorrectAnswers().stream().map(HtmlUtils::htmlUnescape).collect(Collectors.toList()));
-
-        return result;
+        return TriviaUtil.unescapeHtmlTagsOfAllTrivia(
+                optionalOpenTriviaDatabaseResponse
+                        .map(OpenTriviaDatabaseResponse::getResults)
+                        .orElse(Collections.emptyList())
+        );
     }
 }
