@@ -13,8 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
     first_name      VARCHAR(64)                                     NOT NULL,
     middle_name     VARCHAR(64),
     last_name       VARCHAR(64)                                     NOT NULL,
-    phone_numbers   VARCHAR(32)[]                                   NOT NULL,
-    answer_ids      INTEGER[]       REFERENCES answers (id)
+    phone_numbers   VARCHAR(32)[]                                   NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS phone_numbers (
