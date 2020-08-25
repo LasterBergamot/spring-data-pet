@@ -1,0 +1,48 @@
+version: "3.3"
+
+services:
+    postgres:
+        image: postgres:latest
+        container_name: "spring-data-pet-postgres"
+        ports:
+            - 5432:5432
+        environment:
+            - PG_MODE=primary
+            - PG_PRIMARY_USER=postgres
+            - PG_PRIMARY_PASSWORD=admin
+            - PG_DATABASE=spring-data-pet
+            - PG_USER=admin
+            - PG_PASSWORD=admin
+            - POSTGRES_PASSWORD=admin
+            - PG_ROOT_PASSWORD=root
+            - PG_PRIMARY_PORT=5432
+        volumes:
+            - spring-data-pet-postgres-volume:/var/lib/postgresql/data
+        networks:
+            pgnetwork:
+
+    pgadmin:
+        image: dpage/pgadmin4:latest
+        container_name: "spring-data-pet-pgadmin"
+        ports:
+            - 5050:5050
+        environment:
+            - PGADMIN_SETUP_EMAIL=admin@admin.com
+            - PGADMIN_SETUP_PASSWORD=admin
+            - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+            - PGADMIN_DEFAULT_PASSWORD=admin
+            - SERVER_PORT=5050
+        volumes:
+            - spring-data-pet-pgadmin-volume:/var/lib/pgadmin
+        networks:
+            pgnetwork:
+
+volumes:
+    spring-data-pet-postgres-volume:
+        driver: local
+    spring-data-pet-pgadmin-volume:
+        driver: local
+
+networks:
+    pgnetwork:
+        driver: bridge
