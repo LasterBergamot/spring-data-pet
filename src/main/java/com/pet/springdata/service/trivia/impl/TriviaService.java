@@ -108,4 +108,14 @@ public class TriviaService implements OpenTriviaDatabaseService {
 
         return triviaDTOList;
     }
+
+    //TODO: for larger databases this approach is not suitable, do it in a different way
+    @Override
+    public List<Trivia> findTrivia(int numberOfTrivia) {
+        LOG.info("Getting {} Trivia from the database.", numberOfTrivia);
+        List<Trivia> triviaList = triviaRepository.findAll();
+        Collections.shuffle(triviaList);
+
+        return triviaList.subList(0, numberOfTrivia);
+    }
 }

@@ -1,7 +1,7 @@
 package com.pet.springdata.controller.rest.user;
 
 import com.pet.springdata.repository.user.User;
-import com.pet.springdata.service.user.TriviaUserService;
+import com.pet.springdata.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ public class UserRestController {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserRestController.class);
 
-    private final TriviaUserService triviaUserService;
+    private final UserService userService;
 
     @Autowired
-    public UserRestController(TriviaUserService triviaUserService) {
-        this.triviaUserService = triviaUserService;
+    public UserRestController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/saveUser")
@@ -29,6 +29,6 @@ public class UserRestController {
                                          @RequestParam(name = "lastName") String lastName, @RequestParam(name = "phoneNumber") String phoneNumber) {
         LOG.info("Saving User with firstName: {}, middleName: {}, lastName: {}, and phoneNumber: {}.", firstName, middleName, lastName, phoneNumber);
 
-        return triviaUserService.saveUser(firstName, middleName, lastName, phoneNumber);
+        return userService.saveUser(firstName, middleName, lastName, phoneNumber);
     }
 }

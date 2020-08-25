@@ -3,7 +3,7 @@ package com.pet.springdata.service.user.impl;
 import com.pet.springdata.repository.user.Name;
 import com.pet.springdata.repository.user.User;
 import com.pet.springdata.repository.user.UserRepository;
-import com.pet.springdata.service.user.TriviaUserService;
+import com.pet.springdata.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class UserService implements TriviaUserService {
+public class TriviaUserService implements UserService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TriviaUserService.class);
 
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public TriviaUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -32,5 +32,17 @@ public class UserService implements TriviaUserService {
         User user = new User(name, phoneNumbers);
 
         return ResponseEntity.ok(userRepository.save(user));
+    }
+
+    @Override
+    public User findById(short id) {
+        LOG.info("Finding User with id: {}", id);
+        return userRepository
+                .findById(id)
+                .orElse(getDefaultUser());
+    }
+
+    private User getDefaultUser() {
+        return new User(new Name("defaultFirstName", "defaultMiddleName", "defaultLastName"), Set.of("06808888888"));
     }
 }
