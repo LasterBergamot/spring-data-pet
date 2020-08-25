@@ -12,8 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
     id              SMALLINT        GENERATED ALWAYS AS IDENTITY    PRIMARY KEY,
     first_name      text                                            NOT NULL,
     middle_name     text,
-    last_name       text                                            NOT NULL,
-    phone_numbers   text[]                                          NOT NULL
+    last_name       text                                            NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS phone_numbers (

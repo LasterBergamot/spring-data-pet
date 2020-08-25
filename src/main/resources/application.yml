@@ -1,7 +1,7 @@
 server:
   port: 8080
 
-# user local PostgreSQL, the Docker version is not working yet
+# use local PostgreSQL, the Docker version is not working yet
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/spring-data-pet
@@ -11,8 +11,18 @@ spring:
     schema: classpath:/schema.sql
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
       show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
