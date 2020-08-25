@@ -1,5 +1,9 @@
 package com.pet.springdata.repository.trivia;
 
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "trivia")
+@TypeDef(name = "list-array", typeClass = ListArrayType.class)
 public class Trivia {
 
     @Id
@@ -24,6 +29,7 @@ public class Trivia {
     @Column(name = "correct_answer")
     private String correctAnswer;
 
+    @Type(type = "list-array")
     @Column(name = "incorrect_answers")
     private List<String> incorrectAnswers;
 
