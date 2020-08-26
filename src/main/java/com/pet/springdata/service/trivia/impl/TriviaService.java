@@ -68,6 +68,9 @@ public class TriviaService implements OpenTriviaDatabaseService {
                 .orElse(Collections.emptyList());
     }
 
+    //TODO: @Transactional - separate Trivia and DataLoader service
+    // Facade pattern
+    // OpenInView - Spring transaction
     @Override
     public ResponseEntity<List<Trivia>> saveTrivia(int numberOfTrivia) {
         LOG.info("Saving {} Trivia.", numberOfTrivia);
@@ -104,5 +107,15 @@ public class TriviaService implements OpenTriviaDatabaseService {
         triviaDTOList.addAll(getResultsFromOpenTriviaDatabaseResponse(numberOfRemainders, token));
 
         return triviaDTOList;
+    }
+
+    //TODO: for larger databases this approach is not suitable, do it in a different way
+    @Override
+    public List<Trivia> findTrivia(int numberOfTrivia) {
+        LOG.info("Getting {} Trivia from the database.", numberOfTrivia);
+        List<Trivia> triviaList = triviaRepository.findAll();
+        Collections.shuffle(triviaList);
+
+        return triviaList.subList(0, numberOfTrivia);
     }
 }

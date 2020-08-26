@@ -33,7 +33,7 @@ public class User {
 
     @ElementCollection
     @CollectionTable(name = "phone_numbers", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "phone_numbers")
+    @Column(name = "phone_number")
     private Set<String> phoneNumbers = new HashSet<>();
 
     public User() {}

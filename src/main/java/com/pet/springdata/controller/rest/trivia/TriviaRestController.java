@@ -33,6 +33,7 @@ public class TriviaRestController {
         return openTriviaDatabaseService.getTrivia(numberOfTrivia);
     }
 
+    //TODO: do not send back entity
     @GetMapping("/saveTrivia")
     public ResponseEntity<List<Trivia>> saveTrivia(@RequestParam(name = "numberOfTrivia") int numberOfTrivia) {
         LOG.info("Saving {} Trivia.", numberOfTrivia);
