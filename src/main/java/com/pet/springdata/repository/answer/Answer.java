@@ -2,6 +2,12 @@ package com.pet.springdata.repository.answer;
 
 import com.pet.springdata.repository.trivia.Trivia;
 import com.pet.springdata.repository.user.User;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,68 +20,32 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "answers")
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Short id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NonNull
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "trivia_id")
+    @NonNull
     private Trivia trivia;
 
     @Column(name = "selected_answer")
+    @NonNull
     private String selectedAnswer;
 
     @Column(name = "answered_correctly")
+    @NonNull
     private Boolean answeredCorrectly;
-
-    public Answer() {}
-
-    public Answer(User user, Trivia trivia, String selectedAnswer, Boolean answeredCorrectly) {
-        this.user = user;
-        this.trivia = trivia;
-        this.selectedAnswer = selectedAnswer;
-        this.answeredCorrectly = answeredCorrectly;
-    }
-
-    public Short getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Trivia getTrivia() {
-        return trivia;
-    }
-
-    public void setTrivia(Trivia trivia) {
-        this.trivia = trivia;
-    }
-
-    public String getSelectedAnswer() {
-        return selectedAnswer;
-    }
-
-    public void setSelectedAnswer(String selectedAnswer) {
-        this.selectedAnswer = selectedAnswer;
-    }
-
-    public Boolean getAnsweredCorrectly() {
-        return answeredCorrectly;
-    }
-
-    public void setAnsweredCorrectly(Boolean answeredCorrectly) {
-        this.answeredCorrectly = answeredCorrectly;
-    }
 }

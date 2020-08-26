@@ -7,9 +7,9 @@ import com.pet.springdata.repository.trivia.Trivia;
 import com.pet.springdata.repository.trivia.TriviaRepository;
 import com.pet.springdata.service.trivia.ITriviaService;
 import com.pet.springdata.util.trivia.TriviaUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -24,24 +24,21 @@ import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_API_URL;
 import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_TOKEN_URL;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class TriviaService implements ITriviaService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TriviaService.class);
-    public static final int MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST = 50;
+    private static final int MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST = 50;
 
+    @NonNull
     private final TriviaRepository triviaRepository;
 
+    @NonNull
     private final RestTemplate restTemplate;
-
-    @Autowired
-    public TriviaService(TriviaRepository triviaRepository, RestTemplate restTemplate) {
-        this.triviaRepository = triviaRepository;
-        this.restTemplate = restTemplate;
-    }
 
     @Override
     public List<TriviaDTO> getTrivia(int numberOfTrivia) {
-        LOG.info("Getting {} Trivia.", numberOfTrivia);
+        log.info("Getting {} Trivia.", numberOfTrivia);
 
         return TriviaUtil.unescapeHtmlTagsOfAllTrivia(
                 getResultsFromOpenTriviaDatabaseResponse(numberOfTrivia, getTokenFromOpenTriviaDatabase())
@@ -73,7 +70,7 @@ public class TriviaService implements ITriviaService {
     // OpenInView - Spring transaction
     @Override
     public ResponseEntity<List<Trivia>> saveTrivia(int numberOfTrivia) {
-        LOG.info("Saving {} Trivia.", numberOfTrivia);
+        log.info("Saving {} Trivia.", numberOfTrivia);
         List<TriviaDTO> triviaDTOList = TriviaUtil.unescapeHtmlTagsOfAllTrivia(
                 getResultsDependingOnTheNumberOfMaximumRequests(numberOfTrivia, getTokenFromOpenTriviaDatabase())
         );
@@ -112,7 +109,7 @@ public class TriviaService implements ITriviaService {
     //TODO: for larger databases this approach is not suitable, do it in a different way
     @Override
     public List<Trivia> findTrivia(int numberOfTrivia) {
-        LOG.info("Getting {} Trivia from the database.", numberOfTrivia);
+        log.info("Getting {} Trivia from the database.", numberOfTrivia);
         List<Trivia> triviaList = triviaRepository.findAll();
         Collections.shuffle(triviaList);
 

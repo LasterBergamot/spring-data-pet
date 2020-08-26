@@ -1,30 +1,18 @@
 package com.pet.springdata.repository.answer;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Getter
 public class PossibleAnswer {
 
-    private int indexOfAnswer;
-    private String answer;
+    @NonNull
+    private final int indexOfAnswer;
 
-    public PossibleAnswer(int indexOfAnswer, String answer) {
-        this.indexOfAnswer = indexOfAnswer;
-        this.answer = answer;
-    }
-
-    public int getIndexOfAnswer() {
-        return indexOfAnswer;
-    }
-
-    public void setIndexOfAnswer(int indexOfAnswer) {
-        this.indexOfAnswer = indexOfAnswer;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
+    @NonNull
+    private final String answer;
 
     @Override
     public String toString() {

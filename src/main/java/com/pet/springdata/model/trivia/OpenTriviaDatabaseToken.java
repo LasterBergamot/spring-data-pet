@@ -2,43 +2,28 @@ package com.pet.springdata.model.trivia;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
+@NoArgsConstructor
+@Getter
 public class OpenTriviaDatabaseToken {
 
+    @NonNull
     private String responseCode;
+
+    @NonNull
     private String responseMessage;
+
+    @NonNull
     private String token;
 
-    public OpenTriviaDatabaseToken() {}
-
     @JsonCreator
-    public OpenTriviaDatabaseToken(@JsonProperty("response_code") String responseCode, @JsonProperty("response_message") String responseMessage, @JsonProperty("token") String token) {
+    public OpenTriviaDatabaseToken(@NonNull @JsonProperty("response_code") String responseCode, @NonNull  @JsonProperty("response_message") String responseMessage,
+                                   @NonNull  @JsonProperty("token") String token) {
         this.responseCode = responseCode;
         this.responseMessage = responseMessage;
-        this.token = token;
-    }
-
-    public String getResponseCode() {
-        return responseCode;
-    }
-
-    public void setResponseCode(String responseCode) {
-        this.responseCode = responseCode;
-    }
-
-    public String getResponseMessage() {
-        return responseMessage;
-    }
-
-    public void setResponseMessage(String responseMessage) {
-        this.responseMessage = responseMessage;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
         this.token = token;
     }
 }

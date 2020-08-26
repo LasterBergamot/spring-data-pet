@@ -3,26 +3,22 @@ package com.pet.springdata.service.answer.impl;
 import com.pet.springdata.repository.answer.Answer;
 import com.pet.springdata.repository.answer.AnswerRepository;
 import com.pet.springdata.service.answer.AnswerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class TriviaAnswerService implements AnswerService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TriviaAnswerService.class);
-
+    @NonNull
     private final AnswerRepository answerRepository;
-
-    @Autowired
-    public TriviaAnswerService(AnswerRepository answerRepository) {
-        this.answerRepository = answerRepository;
-    }
 
     @Override
     public void saveAnswer(Answer answer) {
-        LOG.info("Saving Answer: {}", answer);
+        log.info("Saving Answer: {}", answer);
 
         answerRepository.save(answer);
     }

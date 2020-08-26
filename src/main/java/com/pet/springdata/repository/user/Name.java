@@ -1,43 +1,26 @@
 package com.pet.springdata.repository.user;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Embeddable;
 
 @Embeddable
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class Name {
 
+    @NonNull
     private String firstName;
+
+    @NonNull
     private String middleName;
+
+    @NonNull
     private String lastName;
-
-    public Name() {}
-
-    public Name(String firstName, String middleName, String lastName) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 }
