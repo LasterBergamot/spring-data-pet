@@ -26,11 +26,22 @@ public class TriviaFacade implements OpenTriviaDatabaseFacade {
 
     @Override
     public ResponseEntity<List<TriviaDTO>> getTrivia(int numberOfTrivia) {
+        log.info("Getting {} Trivia.", numberOfTrivia);
         return openTriviaDatabaseService.getTrivia(numberOfTrivia);
     }
 
     @Override
     public ResponseEntity<List<Trivia>> saveTrivia(int numberOfTrivia) {
-        return null;
+        log.info("Saving {} Trivia.", numberOfTrivia);
+        ResponseEntity<List<TriviaDTO>> triviaDTOListResponse = openTriviaDatabaseService.getTrivia(numberOfTrivia);
+
+        return triviaService.saveTrivia(triviaDTOListResponse.getBody());
+    }
+
+    @Override
+    public List<Trivia> findTrivia(int numberOfTrivia) {
+        log.info("Getting {} Trivia from the database.", numberOfTrivia);
+
+        return triviaService.findTrivia(numberOfTrivia);
     }
 }

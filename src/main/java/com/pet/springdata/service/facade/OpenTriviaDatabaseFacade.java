@@ -9,4 +9,6 @@ import java.util.List;
 public interface OpenTriviaDatabaseFacade {
     ResponseEntity<List<TriviaDTO>> getTrivia(int numberOfTrivia);
     ResponseEntity<List<Trivia>> saveTrivia(int numberOfTrivia);
+
+    List<Trivia> findTrivia(int numberOfTrivia);
 }

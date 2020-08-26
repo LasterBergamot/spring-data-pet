@@ -10,4 +10,6 @@ public class Constants {
     public static final String OPEN_TRIVIA_DB_API_URL = "https://opentdb.com/api.php?amount=%s&token=%s";
 
     public static final String EMPTY_STRING = "";
+
+    public static final int MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST = 50;
 }

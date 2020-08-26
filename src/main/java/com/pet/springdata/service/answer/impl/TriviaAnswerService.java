@@ -19,7 +19,6 @@ public class TriviaAnswerService implements AnswerService {
     @Override
     public void saveAnswer(Answer answer) {
         log.info("Saving Answer: {}", answer);
-
         answerRepository.save(answer);
     }
 }

@@ -33,7 +33,6 @@ public class TriviaRestController {
     @GetMapping("/saveTrivia")
     public ResponseEntity<List<Trivia>> saveTrivia(@RequestParam(name = "numberOfTrivia") int numberOfTrivia) {
         log.info("Saving {} Trivia.", numberOfTrivia);
-
         return openTriviaDatabaseFacade.saveTrivia(numberOfTrivia);
     }
 }

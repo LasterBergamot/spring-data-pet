@@ -23,9 +23,6 @@ public class TriviaService implements ITriviaService {
     @NonNull
     private final TriviaRepository triviaRepository;
 
-    //TODO: @Transactional - separate Trivia and DataLoader service
-    // Facade pattern
-    // OpenInView - Spring transaction
     @Override
     @Transactional
     public ResponseEntity<List<Trivia>> saveTrivia(List<TriviaDTO> triviaDTOList) {

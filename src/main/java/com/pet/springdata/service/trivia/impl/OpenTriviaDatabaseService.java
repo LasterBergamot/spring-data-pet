@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.pet.springdata.util.Constants.EMPTY_STRING;
+import static com.pet.springdata.util.Constants.MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST;
 import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_API_URL;
 import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_TOKEN_URL;
 
@@ -27,8 +28,6 @@ import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_TOKEN_URL;
 @Slf4j
 public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
 
-    private static final int MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST = 50;
-
     @NonNull
     private final RestTemplate restTemplate;
 
@@ -36,20 +35,9 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
     @Transactional
     public ResponseEntity<List<TriviaDTO>> getTrivia(int numberOfTrivia) {
         log.info("Getting {} Trivia.", numberOfTrivia);
-        List<TriviaDTO> resultsFromOpenTriviaDatabase = getResultsFromOpenTriviaDatabaseResponse(numberOfTrivia, getTokenFromOpenTriviaDatabase());
+        List<TriviaDTO> resultsFromOpenTriviaDatabase = getResultsDependingOnTheNumberOfMaximumRequests(numberOfTrivia, getTokenFromOpenTriviaDatabase());
 
         return ResponseEntity.ok(TriviaUtil.unescapeHtmlTagsOfAllTrivia(resultsFromOpenTriviaDatabase));
-    }
-
-    @Transactional
-    public List<TriviaDTO> getResultsFromOpenTriviaDatabaseResponse(int numberOfTrivia, String token) {
-        Optional<OpenTriviaDatabaseResponse> optionalOpenTriviaDatabaseResponse = Optional.ofNullable(
-                restTemplate.getForObject(String.format(OPEN_TRIVIA_DB_API_URL, numberOfTrivia, token), OpenTriviaDatabaseResponse.class)
-        );
-
-        return optionalOpenTriviaDatabaseResponse
-                .map(OpenTriviaDatabaseResponse::getResults)
-                .orElse(Collections.emptyList());
     }
 
     @Transactional
@@ -63,7 +51,8 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
                 .orElse(EMPTY_STRING);
     }
 
-    private List<TriviaDTO> getResultsDependingOnTheNumberOfMaximumRequests(int numberOfTrivia, String token) {
+    @Transactional
+    public List<TriviaDTO> getResultsDependingOnTheNumberOfMaximumRequests(int numberOfTrivia, String token) {
         List<TriviaDTO> triviaDTOList;
 
         double numberOfMaximumRequests = Double.parseDouble(String.valueOf(numberOfTrivia)) / MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST;
@@ -74,6 +63,17 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
         }
 
         return triviaDTOList;
+    }
+
+    @Transactional
+    public List<TriviaDTO> getResultsFromOpenTriviaDatabaseResponse(int numberOfTrivia, String token) {
+        Optional<OpenTriviaDatabaseResponse> optionalOpenTriviaDatabaseResponse = Optional.ofNullable(
+                restTemplate.getForObject(String.format(OPEN_TRIVIA_DB_API_URL, numberOfTrivia, token), OpenTriviaDatabaseResponse.class)
+        );
+
+        return optionalOpenTriviaDatabaseResponse
+                .map(OpenTriviaDatabaseResponse::getResults)
+                .orElse(Collections.emptyList());
     }
 
     private List<TriviaDTO> getResultsForMoreThanOneMaximumRequest(double numberOfMaximumRequests, String token, int numberOfTrivia) {

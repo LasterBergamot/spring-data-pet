@@ -6,8 +6,8 @@ import com.pet.springdata.repository.trivia.Trivia;
 import com.pet.springdata.repository.user.Name;
 import com.pet.springdata.repository.user.User;
 import com.pet.springdata.service.answer.AnswerService;
+import com.pet.springdata.service.facade.OpenTriviaDatabaseFacade;
 import com.pet.springdata.service.quiz.QuizService;
-import com.pet.springdata.service.trivia.ITriviaService;
 import com.pet.springdata.service.user.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class TriviaQuizService implements QuizService {
     private final UserService userService;
 
     @NonNull
-    private final ITriviaService triviaService;
+    private final OpenTriviaDatabaseFacade openTriviaDatabaseFacade;
 
     @NonNull
     private final AnswerService answerService;
@@ -54,7 +54,7 @@ public class TriviaQuizService implements QuizService {
         int desiredNumberOfQuestions = scanner.nextInt();
 
         System.out.printf("Getting %s questions from the database.%n", desiredNumberOfQuestions);
-        return triviaService.findTrivia(desiredNumberOfQuestions);
+        return openTriviaDatabaseFacade.findTrivia(desiredNumberOfQuestions);
     }
 
     private void printQuestions(List<Trivia> triviaList, Scanner scanner, User user) {
