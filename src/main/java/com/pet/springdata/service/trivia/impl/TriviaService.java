@@ -5,7 +5,7 @@ import com.pet.springdata.model.trivia.OpenTriviaDatabaseToken;
 import com.pet.springdata.model.trivia.TriviaDTO;
 import com.pet.springdata.repository.trivia.Trivia;
 import com.pet.springdata.repository.trivia.TriviaRepository;
-import com.pet.springdata.service.trivia.OpenTriviaDatabaseService;
+import com.pet.springdata.service.trivia.ITriviaService;
 import com.pet.springdata.util.trivia.TriviaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_API_URL;
 import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_TOKEN_URL;
 
 @Service
-public class TriviaService implements OpenTriviaDatabaseService {
+public class TriviaService implements ITriviaService {
 
     private static final Logger LOG = LoggerFactory.getLogger(TriviaService.class);
     public static final int MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST = 50;
