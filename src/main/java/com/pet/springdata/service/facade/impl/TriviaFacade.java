@@ -25,8 +25,8 @@ public class TriviaFacade implements OpenTriviaDatabaseFacade {
     private final ITriviaService triviaService;
 
     @Override
-    public List<TriviaDTO> getTrivia(int numberOfTrivia) {
-        return triviaService.getTrivia(numberOfTrivia);
+    public ResponseEntity<List<TriviaDTO>> getTrivia(int numberOfTrivia) {
+        return openTriviaDatabaseService.getTrivia(numberOfTrivia);
     }
 
     @Override

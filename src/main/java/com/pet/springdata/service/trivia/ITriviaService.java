@@ -7,8 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ITriviaService {
-    List<TriviaDTO> getTrivia(int numberOfTrivia);
-    ResponseEntity<List<Trivia>> saveTrivia(int numberOfTrivia);
+    ResponseEntity<List<Trivia>> saveTrivia(List<TriviaDTO> triviaDTOList);
 
     List<Trivia> findTrivia(int numberOfTrivia);
 }

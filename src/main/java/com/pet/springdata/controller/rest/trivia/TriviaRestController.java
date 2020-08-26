@@ -24,7 +24,7 @@ public class TriviaRestController {
     private final OpenTriviaDatabaseFacade openTriviaDatabaseFacade;
 
     @GetMapping("/getTrivia")
-    public List<TriviaDTO> getTrivia(@RequestParam(name = "numberOfTrivia") int numberOfTrivia) {
+    public ResponseEntity<List<TriviaDTO>> getTrivia(@RequestParam(name = "numberOfTrivia") int numberOfTrivia) {
         log.info("Getting {} Trivia.", numberOfTrivia);
         return openTriviaDatabaseFacade.getTrivia(numberOfTrivia);
     }

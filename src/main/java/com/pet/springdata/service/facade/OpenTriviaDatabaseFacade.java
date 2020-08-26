@@ -7,6 +7,6 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface OpenTriviaDatabaseFacade {
-    List<TriviaDTO> getTrivia(int numberOfTrivia);
+    ResponseEntity<List<TriviaDTO>> getTrivia(int numberOfTrivia);
     ResponseEntity<List<Trivia>> saveTrivia(int numberOfTrivia);
 }
