@@ -1,4 +1,4 @@
-package com.pet.springdata.repository.answer.criteria;
+package com.pet.springdata.repository.criteria;
 
 import lombok.Getter;
 import lombok.NonNull;

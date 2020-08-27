@@ -1,7 +1,7 @@
 package com.pet.springdata.service.answer.impl;
 
 import com.pet.springdata.repository.answer.AnswerRepository;
-import com.pet.springdata.repository.answer.criteria.SearchCriteria;
+import com.pet.springdata.repository.criteria.SearchCriteria;
 import com.pet.springdata.repository.answer.model.Answer;
 import com.pet.springdata.repository.answer.specification.AnswerSpecification;
 import com.pet.springdata.service.answer.AnswerService;

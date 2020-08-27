@@ -1,7 +1,7 @@
 package com.pet.springdata.service.facade.impl;
 
 import com.pet.springdata.model.trivia.TriviaDTO;
-import com.pet.springdata.repository.trivia.Trivia;
+import com.pet.springdata.repository.trivia.model.Trivia;
 import com.pet.springdata.service.facade.OpenTriviaDatabaseFacade;
 import com.pet.springdata.service.trivia.IOpenTriviaDatabaseService;
 import com.pet.springdata.service.trivia.ITriviaService;

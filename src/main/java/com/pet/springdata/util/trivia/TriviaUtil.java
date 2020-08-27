@@ -1,7 +1,7 @@
 package com.pet.springdata.util.trivia;
 
 import com.pet.springdata.model.trivia.TriviaDTO;
-import com.pet.springdata.repository.trivia.Trivia;
+import com.pet.springdata.repository.trivia.model.Trivia;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.web.util.HtmlUtils;

@@ -1,6 +1,6 @@
 package com.pet.springdata.repository.answer.specification;
 
-import com.pet.springdata.repository.answer.criteria.SearchCriteria;
+import com.pet.springdata.repository.criteria.SearchCriteria;
 import com.pet.springdata.repository.answer.model.Answer;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

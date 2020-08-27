@@ -1,7 +1,7 @@
 package com.pet.springdata.service.trivia.impl;
 
 import com.pet.springdata.model.trivia.TriviaDTO;
-import com.pet.springdata.repository.trivia.Trivia;
+import com.pet.springdata.repository.trivia.model.Trivia;
 import com.pet.springdata.repository.trivia.TriviaRepository;
 import com.pet.springdata.service.trivia.ITriviaService;
 import com.pet.springdata.util.trivia.TriviaUtil;

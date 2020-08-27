@@ -1,4 +1,4 @@
-package com.pet.springdata.repository.trivia;
+package com.pet.springdata.repository.trivia.model;
 
 import com.vladmihalcea.hibernate.type.array.ListArrayType;
 import lombok.AccessLevel;
