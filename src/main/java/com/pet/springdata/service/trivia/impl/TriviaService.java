@@ -18,13 +18,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class TriviaService implements ITriviaService {
 
     @NonNull
     private final TriviaRepository triviaRepository;
 
     @Override
-    @Transactional
     public ResponseEntity<List<Trivia>> saveTrivia(List<TriviaDTO> triviaDTOList) {
         log.info("Saving {} Trivia.", triviaDTOList.size());
         List<Trivia> triviaList = triviaRepository.saveAll(TriviaUtil.transformTriviaDTOListToTriviaList(triviaDTOList));
@@ -34,7 +34,6 @@ public class TriviaService implements ITriviaService {
 
     //TODO: for larger databases this approach is not suitable, do it in a different way
     @Override
-    @Transactional
     public List<Trivia> findTrivia(int numberOfTrivia) {
         log.info("Getting {} Trivia from the database.", numberOfTrivia);
         List<Trivia> triviaList = triviaRepository.findAll();
