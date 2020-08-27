@@ -2,13 +2,18 @@ package com.pet.springdata.repository.answer.criteria;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Getter
-public abstract class SearchCriteria {
+public class SearchCriteria {
 
     @NonNull
-    protected String key;
+    private final String key;
 
     @NonNull
-    protected String operation;
+    private final String operation;
+
+    @NonNull
+    private final Object value;
 }

@@ -1,11 +1,9 @@
 package com.pet.springdata.service.answer.impl;
 
 import com.pet.springdata.repository.answer.AnswerRepository;
-import com.pet.springdata.repository.answer.criteria.ext.answered_correctly.SearchCriteriaForAnsweredCorrectly;
-import com.pet.springdata.repository.answer.criteria.ext.user_id.SearchCriteriaForUserId;
+import com.pet.springdata.repository.answer.criteria.SearchCriteria;
 import com.pet.springdata.repository.answer.model.Answer;
-import com.pet.springdata.repository.answer.specification.answered_correctly.AnswerSpecificationForAnsweredCorrectly;
-import com.pet.springdata.repository.answer.specification.user_id.AnswerSpecificationForUserId;
+import com.pet.springdata.repository.answer.specification.AnswerSpecification;
 import com.pet.springdata.service.answer.AnswerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -45,31 +43,31 @@ public class TriviaAnswerService implements AnswerService {
     @Override
     public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectness(String answeredCorrectly) {
         log.info("Getting all Answers with correctness: {}", answeredCorrectly);
-        SearchCriteriaForAnsweredCorrectly searchCriteriaForAnsweredCorrectly = new SearchCriteriaForAnsweredCorrectly(KEY_ANSWERED_CORRECTLY, SYMBOL_COLON_EQUAL,
-                Boolean.parseBoolean(answeredCorrectly));
-        AnswerSpecificationForAnsweredCorrectly answerSpecificationForAnsweredCorrectly = new AnswerSpecificationForAnsweredCorrectly(searchCriteriaForAnsweredCorrectly);
+        SearchCriteria searchCriteria = new SearchCriteria(KEY_ANSWERED_CORRECTLY, SYMBOL_COLON_EQUAL, Boolean.parseBoolean(answeredCorrectly));
+        AnswerSpecification answerSpecification = new AnswerSpecification(searchCriteria);
 
-        return ResponseEntity.ok(answerRepository.findAll(answerSpecificationForAnsweredCorrectly));
+        return ResponseEntity.ok(answerRepository.findAll(answerSpecification));
     }
 
     @Override
     public ResponseEntity<List<Answer>> getAllAnswersOfUser(String userId) {
         log.info("Getting all Answers of User with id: {}", userId);
-        SearchCriteriaForUserId searchCriteriaForUserId = new SearchCriteriaForUserId(KEY_USER, SYMBOL_COLON_EQUAL, Short.parseShort(userId));
-        AnswerSpecificationForUserId answerSpecificationForUserId = new AnswerSpecificationForUserId(searchCriteriaForUserId);
+        SearchCriteria searchCriteria = new SearchCriteria(KEY_USER, SYMBOL_COLON_EQUAL, Short.parseShort(userId));
+        AnswerSpecification answerSpecification = new AnswerSpecification(searchCriteria);
 
-        return ResponseEntity.ok(answerRepository.findAll(answerSpecificationForUserId));
+        return ResponseEntity.ok(answerRepository.findAll(answerSpecification));
     }
 
     @Override
     public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectnessAndUserId(String answeredCorrectly, String userId) {
         log.info("Getting all Answers with correctness: {}, and UserId: {}", answeredCorrectly, userId);
-        SearchCriteriaForAnsweredCorrectly searchCriteriaForAnsweredCorrectly = new SearchCriteriaForAnsweredCorrectly(KEY_ANSWERED_CORRECTLY, SYMBOL_COLON_EQUAL,
-                Boolean.parseBoolean(answeredCorrectly));
-        SearchCriteriaForUserId searchCriteriaForUserId = new SearchCriteriaForUserId(KEY_USER, SYMBOL_COLON_EQUAL, Short.parseShort(userId));
-        AnswerSpecificationForAnsweredCorrectly answerSpecificationForAnsweredCorrectly = new AnswerSpecificationForAnsweredCorrectly(searchCriteriaForAnsweredCorrectly);
-        AnswerSpecificationForUserId answerSpecificationForUserId = new AnswerSpecificationForUserId(searchCriteriaForUserId);
+        SearchCriteria searchCriteriaAnsweredCorrectly = new SearchCriteria(KEY_ANSWERED_CORRECTLY, SYMBOL_COLON_EQUAL, Boolean.parseBoolean(answeredCorrectly));
+        AnswerSpecification answerSpecificationAnsweredCorrectly = new AnswerSpecification(searchCriteriaAnsweredCorrectly);
 
-        return ResponseEntity.ok(answerRepository.findAll(Specification.where(answerSpecificationForAnsweredCorrectly).and(answerSpecificationForUserId)));
+        SearchCriteria searchCriteriaUserId = new SearchCriteria(KEY_USER, SYMBOL_COLON_EQUAL, Short.parseShort(userId));
+        AnswerSpecification answerSpecificationUserId = new AnswerSpecification(searchCriteriaUserId);
+
+
+        return ResponseEntity.ok(answerRepository.findAll(Specification.where(answerSpecificationAnsweredCorrectly).and(answerSpecificationUserId)));
     }
 }
