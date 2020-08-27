@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -20,8 +19,8 @@ import java.util.Optional;
 
 import static com.pet.springdata.util.Constants.EMPTY_STRING;
 import static com.pet.springdata.util.Constants.MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST;
-import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_API_URL;
-import static com.pet.springdata.util.Constants.OPEN_TRIVIA_DB_TOKEN_URL;
+import static com.pet.springdata.util.Constants.URL_OPEN_TRIVIA_DB_API;
+import static com.pet.springdata.util.Constants.URL_OPEN_TRIVIA_DB_TOKEN;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +40,7 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
 
     public String getTokenFromOpenTriviaDatabase() {
         Optional<OpenTriviaDatabaseToken> optionalOpenTriviaDatabaseToken = Optional.ofNullable(
-                restTemplate.getForObject(OPEN_TRIVIA_DB_TOKEN_URL, OpenTriviaDatabaseToken.class)
+                restTemplate.getForObject(URL_OPEN_TRIVIA_DB_TOKEN, OpenTriviaDatabaseToken.class)
         );
 
         return optionalOpenTriviaDatabaseToken
@@ -64,7 +63,7 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
 
     public List<TriviaDTO> getResultsFromOpenTriviaDatabaseResponse(int numberOfTrivia, String token) {
         Optional<OpenTriviaDatabaseResponse> optionalOpenTriviaDatabaseResponse = Optional.ofNullable(
-                restTemplate.getForObject(String.format(OPEN_TRIVIA_DB_API_URL, numberOfTrivia, token), OpenTriviaDatabaseResponse.class)
+                restTemplate.getForObject(String.format(URL_OPEN_TRIVIA_DB_API, numberOfTrivia, token), OpenTriviaDatabaseResponse.class)
         );
 
         return optionalOpenTriviaDatabaseResponse
