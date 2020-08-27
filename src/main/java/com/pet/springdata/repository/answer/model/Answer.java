@@ -1,4 +1,4 @@
-package com.pet.springdata.repository.answer;
+package com.pet.springdata.repository.answer.model;
 
 import com.pet.springdata.repository.trivia.Trivia;
 import com.pet.springdata.repository.user.User;

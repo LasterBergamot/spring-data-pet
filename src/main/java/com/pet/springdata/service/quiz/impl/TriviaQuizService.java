@@ -1,7 +1,7 @@
 package com.pet.springdata.service.quiz.impl;
 
-import com.pet.springdata.repository.answer.Answer;
-import com.pet.springdata.repository.answer.PossibleAnswer;
+import com.pet.springdata.repository.answer.model.Answer;
+import com.pet.springdata.model.answer.PossibleAnswer;
 import com.pet.springdata.repository.trivia.Trivia;
 import com.pet.springdata.repository.user.Name;
 import com.pet.springdata.repository.user.User;

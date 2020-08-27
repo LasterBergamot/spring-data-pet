@@ -1,4 +1,4 @@
-package com.pet.springdata.repository.answer;
+package com.pet.springdata.model.answer;
 
 import lombok.Getter;
 import lombok.NonNull;

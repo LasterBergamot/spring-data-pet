@@ -1,6 +1,6 @@
 package com.pet.springdata.service.answer.impl;
 
-import com.pet.springdata.repository.answer.Answer;
+import com.pet.springdata.repository.answer.model.Answer;
 import com.pet.springdata.repository.answer.AnswerRepository;
 import com.pet.springdata.service.answer.AnswerService;
 import lombok.NonNull;
