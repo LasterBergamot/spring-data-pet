@@ -32,7 +32,6 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
     private final RestTemplate restTemplate;
 
     @Override
-    @Transactional
     public ResponseEntity<List<TriviaDTO>> getTrivia(int numberOfTrivia) {
         log.info("Getting {} Trivia.", numberOfTrivia);
         List<TriviaDTO> resultsFromOpenTriviaDatabase = getResultsDependingOnTheNumberOfMaximumRequests(numberOfTrivia, getTokenFromOpenTriviaDatabase());
@@ -40,7 +39,6 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
         return ResponseEntity.ok(TriviaUtil.unescapeHtmlTagsOfAllTrivia(resultsFromOpenTriviaDatabase));
     }
 
-    @Transactional
     public String getTokenFromOpenTriviaDatabase() {
         Optional<OpenTriviaDatabaseToken> optionalOpenTriviaDatabaseToken = Optional.ofNullable(
                 restTemplate.getForObject(OPEN_TRIVIA_DB_TOKEN_URL, OpenTriviaDatabaseToken.class)
@@ -51,7 +49,6 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
                 .orElse(EMPTY_STRING);
     }
 
-    @Transactional
     public List<TriviaDTO> getResultsDependingOnTheNumberOfMaximumRequests(int numberOfTrivia, String token) {
         List<TriviaDTO> triviaDTOList;
 
@@ -65,7 +62,6 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
         return triviaDTOList;
     }
 
-    @Transactional
     public List<TriviaDTO> getResultsFromOpenTriviaDatabaseResponse(int numberOfTrivia, String token) {
         Optional<OpenTriviaDatabaseResponse> optionalOpenTriviaDatabaseResponse = Optional.ofNullable(
                 restTemplate.getForObject(String.format(OPEN_TRIVIA_DB_API_URL, numberOfTrivia, token), OpenTriviaDatabaseResponse.class)
