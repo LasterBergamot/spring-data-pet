@@ -31,12 +31,12 @@ public class AnswerRestController {
     @GetMapping("/correctness")
     public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectness(@RequestParam("answeredCorrectly") String answeredCorrectly) {
         log.info("Getting all Answers with correctness: {}", answeredCorrectly);
-        return answerService.getAllAnswersDependingOnCorrectness(Boolean.parseBoolean(answeredCorrectly));
+        return answerService.getAllAnswersDependingOnCorrectness(answeredCorrectly);
     }
 
     @GetMapping("/user")
     public ResponseEntity<List<Answer>> getAllAnswersOfUser(@RequestParam("userId") String userId) {
         log.info("Getting all Answers of User with id: {}", userId);
-        return answerService.getAllAnswersOfUser(Short.parseShort(userId));
+        return answerService.getAllAnswersOfUser(userId);
     }
 }

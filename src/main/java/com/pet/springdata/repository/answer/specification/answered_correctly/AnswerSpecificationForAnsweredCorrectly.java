@@ -1,7 +1,9 @@
-package com.pet.springdata.repository.answer.specification;
+package com.pet.springdata.repository.answer.specification.answered_correctly;
 
+import com.pet.springdata.repository.answer.criteria.ext.answered_correctly.SearchCriteriaForAnsweredCorrectly;
 import com.pet.springdata.repository.answer.model.Answer;
-import com.pet.springdata.repository.criteria.SearchCriteria;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -11,26 +13,22 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import static com.pet.springdata.util.Constants.COLON_EQUAL_SYMBOL;
-import static com.pet.springdata.util.Constants.GREATER_THAN_OR_EQUAL_SYMBOL;
-import static com.pet.springdata.util.Constants.LESS_THAN_OR_EQUAL_SYMBOL;
 import static com.pet.springdata.util.Constants.PERCENT_SYMBOL;
 
-public class AnswerSpecification implements Specification<Answer> {
+@RequiredArgsConstructor
+public class AnswerSpecificationForAnsweredCorrectly implements Specification<Answer> {
 
-    private SearchCriteria criteria;
+    @NonNull
+    private final SearchCriteriaForAnsweredCorrectly searchCriteriaForAnsweredCorrectly;
 
     @Override
     public Predicate toPredicate(Root<Answer> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-        String criteriaOperation = criteria.getOperation();
-        String criteriaKey = criteria.getKey();
-        String criteriaValue = criteria.getValue();
+        String criteriaKey = searchCriteriaForAnsweredCorrectly.getKey();
+        String criteriaOperation = searchCriteriaForAnsweredCorrectly.getOperation();
+        boolean criteriaValue = searchCriteriaForAnsweredCorrectly.isValue();
         Expression<String> criteriaKeyExpression = root.get(criteriaKey);
 
-        if (criteriaOperation.equalsIgnoreCase(GREATER_THAN_OR_EQUAL_SYMBOL)) {
-            return criteriaBuilder.greaterThanOrEqualTo(criteriaKeyExpression, criteriaValue);
-        } else if (criteriaOperation.equalsIgnoreCase(LESS_THAN_OR_EQUAL_SYMBOL)) {
-            return criteriaBuilder.lessThanOrEqualTo(criteriaKeyExpression, criteriaValue);
-        } else if (criteriaOperation.equalsIgnoreCase(COLON_EQUAL_SYMBOL)) {
+        if (criteriaOperation.equalsIgnoreCase(COLON_EQUAL_SYMBOL)) {
             if (criteriaKeyExpression.getJavaType() == String.class) {
                 return criteriaBuilder.like(criteriaKeyExpression, PERCENT_SYMBOL + criteriaValue + PERCENT_SYMBOL);
             } else {

@@ -1,7 +1,9 @@
 package com.pet.springdata.service.answer.impl;
 
+import com.pet.springdata.repository.answer.criteria.ext.answered_correctly.SearchCriteriaForAnsweredCorrectly;
 import com.pet.springdata.repository.answer.model.Answer;
 import com.pet.springdata.repository.answer.AnswerRepository;
+import com.pet.springdata.repository.answer.specification.answered_correctly.AnswerSpecificationForAnsweredCorrectly;
 import com.pet.springdata.service.answer.AnswerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -27,16 +29,23 @@ public class TriviaAnswerService implements AnswerService {
 
     @Override
     public ResponseEntity<List<Answer>> getAllAnswers() {
-        return null;
+        log.info("Getting all Answers.");
+        return ResponseEntity.ok(answerRepository.findAll());
     }
 
     @Override
-    public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectness(boolean answeredCorrectly) {
-        return null;
+    public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectness(String answeredCorrectly) {
+        log.info("Getting all Answers with correctness: {}", answeredCorrectly);
+        SearchCriteriaForAnsweredCorrectly searchCriteriaForAnsweredCorrectly = new SearchCriteriaForAnsweredCorrectly("answeredCorrectly", ":", Boolean.parseBoolean(answeredCorrectly));
+        AnswerSpecificationForAnsweredCorrectly answerSpecificationForAnsweredCorrectly = new AnswerSpecificationForAnsweredCorrectly(searchCriteriaForAnsweredCorrectly);
+
+        return ResponseEntity.ok(answerRepository.findAll(answerSpecificationForAnsweredCorrectly));
     }
 
     @Override
-    public ResponseEntity<List<Answer>> getAllAnswersOfUser(short userId) {
+    public ResponseEntity<List<Answer>> getAllAnswersOfUser(String userId) {
+        log.info("Getting all Answers of User with id: {}", userId);
+
         return null;
     }
 }

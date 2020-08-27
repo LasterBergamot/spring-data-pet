@@ -9,6 +9,6 @@ public interface AnswerService {
     void saveAnswer(Answer answer);
 
     ResponseEntity<List<Answer>> getAllAnswers();
-    ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectness(boolean answeredCorrectly);
-    ResponseEntity<List<Answer>> getAllAnswersOfUser(short userId);
+    ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectness(String answeredCorrectly);
+    ResponseEntity<List<Answer>> getAllAnswersOfUser(String userId);
 }
