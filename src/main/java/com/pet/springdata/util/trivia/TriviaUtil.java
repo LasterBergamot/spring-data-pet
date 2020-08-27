@@ -1,16 +1,17 @@
 package com.pet.springdata.util.trivia;
 
 import com.pet.springdata.model.trivia.TriviaDTO;
-import com.pet.springdata.repository.trivia.Trivia;
+import com.pet.springdata.repository.trivia.model.Trivia;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TriviaUtil {
-
-    private TriviaUtil() {}
 
     public static List<TriviaDTO> unescapeHtmlTagsOfAllTrivia(List<TriviaDTO> results) {
         for (TriviaDTO result : results) {
