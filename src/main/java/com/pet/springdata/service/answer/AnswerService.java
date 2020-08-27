@@ -11,4 +11,5 @@ public interface AnswerService {
     ResponseEntity<List<Answer>> getAllAnswers();
     ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectness(String answeredCorrectly);
     ResponseEntity<List<Answer>> getAllAnswersOfUser(String userId);
+    ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectnessAndUserId(String answeredCorrectly, String userId);
 }
