@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ import static com.pet.springdata.util.Constants.SYMBOL_COLON_EQUAL;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional
 public class TriviaAnswerService implements AnswerService {
 
     @NonNull

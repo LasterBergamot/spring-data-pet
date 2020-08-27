@@ -4,6 +4,7 @@ import com.pet.springdata.repository.answer.criteria.ext.answered_correctly.Sear
 import com.pet.springdata.repository.answer.model.Answer;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,7 +20,8 @@ import static com.pet.springdata.util.Constants.SYMBOL_PERCENT;
 public class AnswerSpecificationForAnsweredCorrectly implements Specification<Answer> {
 
     @NonNull
-    private final SearchCriteriaForAnsweredCorrectly searchCriteriaForAnsweredCorrectly;
+    @Transient
+    private final transient SearchCriteriaForAnsweredCorrectly searchCriteriaForAnsweredCorrectly;
 
     @Override
     public Predicate toPredicate(Root<Answer> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
