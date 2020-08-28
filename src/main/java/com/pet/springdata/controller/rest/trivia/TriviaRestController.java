@@ -14,8 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.pet.springdata.util.Constants.REQUEST_MAPPING_DETAILS;
+import static com.pet.springdata.util.Constants.REQUEST_MAPPING_GET_TRIVIA;
+import static com.pet.springdata.util.Constants.REQUEST_MAPPING_SAVE_TRIVIA;
+import static com.pet.springdata.util.Constants.REQUEST_MAPPING_TRIVIA;
+import static com.pet.springdata.util.Constants.REQUEST_PARAM_CATEGORY;
+import static com.pet.springdata.util.Constants.REQUEST_PARAM_DIFFICULTY;
+import static com.pet.springdata.util.Constants.REQUEST_PARAM_NUMBER_OF_TRIVIA;
+import static com.pet.springdata.util.Constants.REQUEST_PARAM_TYPE;
+
 @RestController
-@RequestMapping("/trivia")
+@RequestMapping(REQUEST_MAPPING_TRIVIA)
 @RequiredArgsConstructor
 @Slf4j
 public class TriviaRestController {
@@ -23,23 +32,23 @@ public class TriviaRestController {
     @NonNull
     private final OpenTriviaDatabaseFacade openTriviaDatabaseFacade;
 
-    @GetMapping("/getTrivia")
-    public ResponseEntity<List<TriviaDTO>> getTrivia(@RequestParam("numberOfTrivia") int numberOfTrivia) {
+    @GetMapping(REQUEST_MAPPING_GET_TRIVIA)
+    public ResponseEntity<List<TriviaDTO>> getTrivia(@RequestParam(REQUEST_PARAM_NUMBER_OF_TRIVIA) int numberOfTrivia) {
         log.info("Getting {} Trivia.", numberOfTrivia);
         return openTriviaDatabaseFacade.getTrivia(numberOfTrivia);
     }
 
     //TODO: do not send back entity
-    @GetMapping("/saveTrivia")
-    public ResponseEntity<List<Trivia>> saveTrivia(@RequestParam("numberOfTrivia") int numberOfTrivia) {
+    @GetMapping(REQUEST_MAPPING_SAVE_TRIVIA)
+    public ResponseEntity<List<Trivia>> saveTrivia(@RequestParam(REQUEST_PARAM_NUMBER_OF_TRIVIA) int numberOfTrivia) {
         log.info("Saving {} Trivia.", numberOfTrivia);
         return openTriviaDatabaseFacade.saveTrivia(numberOfTrivia);
     }
 
-    @GetMapping("/details")
-    public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(@RequestParam(value = "category", required = false) String category,
-                                                                              @RequestParam(value = "type", required = false) String type,
-                                                                              @RequestParam(value = "difficulty", required = false) String difficulty) {
+    @GetMapping(REQUEST_MAPPING_DETAILS)
+    public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(@RequestParam(value = REQUEST_PARAM_CATEGORY, required = false) String category,
+                                                                              @RequestParam(value = REQUEST_PARAM_TYPE, required = false) String type,
+                                                                              @RequestParam(value = REQUEST_PARAM_DIFFICULTY, required = false) String difficulty) {
         log.info("Getting Trivia with category: {}, type: {}, and difficulty: {}.", category, type, difficulty);
         return openTriviaDatabaseFacade.findTriviaByCategoryTypeAndDifficulty(category, type, difficulty);
     }
