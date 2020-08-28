@@ -1,6 +1,6 @@
 package com.pet.springdata.controller.rest.user;
 
-import com.pet.springdata.repository.user.User;
+import com.pet.springdata.repository.user.model.User;
 import com.pet.springdata.service.user.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

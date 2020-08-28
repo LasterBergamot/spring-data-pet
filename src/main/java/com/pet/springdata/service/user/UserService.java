@@ -1,6 +1,6 @@
 package com.pet.springdata.service.user;
 
-import com.pet.springdata.repository.user.User;
+import com.pet.springdata.repository.user.model.User;
 import org.springframework.http.ResponseEntity;
 
 public interface UserService {

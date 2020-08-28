@@ -1,7 +1,7 @@
 package com.pet.springdata.service.user.impl;
 
-import com.pet.springdata.repository.user.Name;
-import com.pet.springdata.repository.user.User;
+import com.pet.springdata.repository.user.model.Name;
+import com.pet.springdata.repository.user.model.User;
 import com.pet.springdata.repository.user.UserRepository;
 import com.pet.springdata.service.user.UserService;
 import lombok.NonNull;

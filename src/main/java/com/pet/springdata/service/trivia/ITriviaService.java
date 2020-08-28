@@ -10,4 +10,6 @@ public interface ITriviaService {
     ResponseEntity<List<Trivia>> saveTrivia(List<TriviaDTO> triviaDTOList);
 
     List<Trivia> findTrivia(int numberOfTrivia);
+
+    ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty);
 }

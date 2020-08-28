@@ -1,4 +1,4 @@
-package com.pet.springdata.controller.answer;
+package com.pet.springdata.controller.rest.answer;
 
 import com.pet.springdata.repository.answer.model.Answer;
 import com.pet.springdata.service.answer.AnswerService;

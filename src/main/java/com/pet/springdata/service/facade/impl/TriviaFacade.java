@@ -44,4 +44,10 @@ public class TriviaFacade implements OpenTriviaDatabaseFacade {
 
         return triviaService.findTrivia(numberOfTrivia);
     }
+
+    @Override
+    public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty) {
+        log.info("Getting Trivia with category: {}, type: {}, and difficulty: {}.", category, type, difficulty);
+        return triviaService.findTriviaByCategoryTypeAndDifficulty(category, type, difficulty);
+    }
 }

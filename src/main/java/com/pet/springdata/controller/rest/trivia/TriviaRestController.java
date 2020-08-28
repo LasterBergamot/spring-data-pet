@@ -24,15 +24,23 @@ public class TriviaRestController {
     private final OpenTriviaDatabaseFacade openTriviaDatabaseFacade;
 
     @GetMapping("/getTrivia")
-    public ResponseEntity<List<TriviaDTO>> getTrivia(@RequestParam(name = "numberOfTrivia") int numberOfTrivia) {
+    public ResponseEntity<List<TriviaDTO>> getTrivia(@RequestParam("numberOfTrivia") int numberOfTrivia) {
         log.info("Getting {} Trivia.", numberOfTrivia);
         return openTriviaDatabaseFacade.getTrivia(numberOfTrivia);
     }
 
     //TODO: do not send back entity
     @GetMapping("/saveTrivia")
-    public ResponseEntity<List<Trivia>> saveTrivia(@RequestParam(name = "numberOfTrivia") int numberOfTrivia) {
+    public ResponseEntity<List<Trivia>> saveTrivia(@RequestParam("numberOfTrivia") int numberOfTrivia) {
         log.info("Saving {} Trivia.", numberOfTrivia);
         return openTriviaDatabaseFacade.saveTrivia(numberOfTrivia);
+    }
+
+    @GetMapping("/details")
+    public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(@RequestParam(value = "category", required = false) String category,
+                                                                              @RequestParam(value = "type", required = false) String type,
+                                                                              @RequestParam(value = "difficulty", required = false) String difficulty) {
+        log.info("Getting Trivia with category: {}, type: {}, and difficulty: {}.", category, type, difficulty);
+        return openTriviaDatabaseFacade.findTriviaByCategoryTypeAndDifficulty(category, type, difficulty);
     }
 }
