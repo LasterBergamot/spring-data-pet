@@ -8,6 +8,7 @@
            timeToIdleSeconds="600"
            timeToLiveSeconds="3600"
            overflowToDisk="true"
+           statistics="true"
     />
     <cache name="triviaCache"
            maxElementsInMemory="10000"
@@ -15,6 +16,7 @@
            timeToIdleSeconds="600"
            timeToLiveSeconds="3600"
            overflowToDisk="true"
+           statistics="true"
     />
     <cache name="userCache"
            maxElementsInMemory="10000"
@@ -22,5 +24,6 @@
            timeToIdleSeconds="600"
            timeToLiveSeconds="3600"
            overflowToDisk="true"
+           statistics="true"
     />
 </ehcache>

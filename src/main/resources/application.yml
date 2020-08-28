@@ -13,6 +13,11 @@ spring:
     hibernate:
       ddl-auto: validate
       show-sql: true
+#      generate_statistics: true
+#      cache:
+#        use_second_level_cache: true
+#        region:
+#          factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -28,8 +33,9 @@ logging:
             sql:
               BasicBinder: TRACE
 
-hibernate:
-  cache:
-    use_second_level_cache: true
-    region:
-      factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+#hibernate:
+#  generate_statistics: true
+#  cache:
+#    use_second_level_cache: true
+#    region:
+#      factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
