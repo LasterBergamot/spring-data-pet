@@ -27,3 +27,9 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
+hibernate:
+  cache:
+    use_second_level_cache: true
+    region:
+      factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
