@@ -7,6 +7,7 @@ import com.pet.springdata.service.user.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@CacheConfig(cacheNames = "EventConfig")
 public class TriviaUserService implements UserService {
 
     @NonNull

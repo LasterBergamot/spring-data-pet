@@ -7,13 +7,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class Name {
+public class Name implements Serializable {
 
     @NonNull
     private String firstName;

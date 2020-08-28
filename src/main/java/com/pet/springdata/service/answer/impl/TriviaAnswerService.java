@@ -8,6 +8,10 @@ import com.pet.springdata.service.answer.AnswerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,7 @@ import static com.pet.springdata.util.Constants.SYMBOL_COLON_EQUAL;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
+@Cacheable(value = "ehcache")
 public class TriviaAnswerService implements AnswerService {
 
     @NonNull
@@ -35,9 +40,10 @@ public class TriviaAnswerService implements AnswerService {
     }
 
     @Override
-    public ResponseEntity<List<Answer>> getAllAnswers() {
+    @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+    public List<Answer> getAllAnswers() {
         log.info("Getting all Answers.");
-        return ResponseEntity.ok(answerRepository.findAll());
+        return answerRepository.findAll();
     }
 
     @Override

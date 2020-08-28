@@ -9,6 +9,7 @@ import com.pet.springdata.util.trivia.TriviaUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
+@CacheConfig(cacheNames = "EventConfig")
 public class TriviaService implements ITriviaService {
 
     @NonNull

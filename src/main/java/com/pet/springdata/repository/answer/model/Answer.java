@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cache.annotation.Cacheable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "answers")
@@ -26,8 +28,9 @@ import javax.persistence.Table;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Answer {
+public class Answer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

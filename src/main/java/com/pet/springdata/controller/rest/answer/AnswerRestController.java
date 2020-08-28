@@ -31,7 +31,7 @@ public class AnswerRestController {
     private final AnswerService answerService;
 
     @GetMapping(REQUEST_MAPPING_ALL)
-    public ResponseEntity<List<Answer>> getAllAnswers() {
+    public List<Answer> getAllAnswers() {
         log.info("Getting all Answers.");
         return answerService.getAllAnswers();
     }
