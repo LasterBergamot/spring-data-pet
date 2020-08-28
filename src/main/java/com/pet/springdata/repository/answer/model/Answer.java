@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +26,7 @@ import javax.persistence.Table;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Answer {
 
     @Id

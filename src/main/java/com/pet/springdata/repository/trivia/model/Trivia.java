@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -24,6 +26,7 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Trivia {
 
     @Id

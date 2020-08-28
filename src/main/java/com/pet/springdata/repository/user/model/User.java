@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -27,6 +29,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User {
 
     @Id
@@ -47,5 +50,6 @@ public class User {
     @CollectionTable(name = "phone_numbers", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "phone_number")
     @NonNull
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<String> phoneNumbers;
 }
