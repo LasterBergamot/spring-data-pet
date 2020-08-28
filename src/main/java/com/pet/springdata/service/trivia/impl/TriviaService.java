@@ -1,6 +1,7 @@
 package com.pet.springdata.service.trivia.impl;
 
 import com.pet.springdata.model.trivia.TriviaDTO;
+import com.pet.springdata.repository.trivia.TriviaRepositoryCustom;
 import com.pet.springdata.repository.trivia.model.Trivia;
 import com.pet.springdata.repository.trivia.TriviaRepository;
 import com.pet.springdata.service.trivia.ITriviaService;
@@ -24,6 +25,9 @@ public class TriviaService implements ITriviaService {
     @NonNull
     private final TriviaRepository triviaRepository;
 
+    @NonNull
+    private final TriviaRepositoryCustom triviaRepositoryCustom;
+
     @Override
     public ResponseEntity<List<Trivia>> saveTrivia(List<TriviaDTO> triviaDTOList) {
         log.info("Saving {} Trivia.", triviaDTOList.size());
@@ -40,5 +44,11 @@ public class TriviaService implements ITriviaService {
         Collections.shuffle(triviaList);
 
         return triviaList.subList(0, numberOfTrivia);
+    }
+
+    @Override
+    public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty) {
+        log.info("Getting Trivia with category: {}, type: {}, and difficulty: {}.", category, type, difficulty);
+        return ResponseEntity.ok(triviaRepositoryCustom.findTriviaByCategoryTypeAndDifficulty(category, type, difficulty));
     }
 }

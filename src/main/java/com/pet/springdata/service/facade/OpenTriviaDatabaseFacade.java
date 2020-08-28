@@ -11,4 +11,6 @@ public interface OpenTriviaDatabaseFacade {
     ResponseEntity<List<Trivia>> saveTrivia(int numberOfTrivia);
 
     List<Trivia> findTrivia(int numberOfTrivia);
+
+    ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty);
 }

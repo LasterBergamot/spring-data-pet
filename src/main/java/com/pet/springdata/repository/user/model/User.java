@@ -1,4 +1,4 @@
-package com.pet.springdata.repository.user;
+package com.pet.springdata.repository.user.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;

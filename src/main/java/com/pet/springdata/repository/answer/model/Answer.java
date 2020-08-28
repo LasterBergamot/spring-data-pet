@@ -1,7 +1,7 @@
 package com.pet.springdata.repository.answer.model;
 
 import com.pet.springdata.repository.trivia.model.Trivia;
-import com.pet.springdata.repository.user.User;
+import com.pet.springdata.repository.user.model.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
