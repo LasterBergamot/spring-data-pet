@@ -28,7 +28,6 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Trivia implements Serializable {
 

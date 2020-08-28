@@ -27,7 +27,7 @@ import static com.pet.springdata.util.Constants.SYMBOL_COLON_EQUAL;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-@Cacheable(value = "ehcache")
+@Cacheable(value = "answerCache")
 public class TriviaAnswerService implements AnswerService {
 
     @NonNull

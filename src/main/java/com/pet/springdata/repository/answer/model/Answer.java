@@ -28,7 +28,6 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @Getter
 @Setter
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Answer implements Serializable {
 

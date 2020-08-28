@@ -1,15 +1,15 @@
 package com.pet.springdata.service.trivia.impl;
 
 import com.pet.springdata.model.trivia.TriviaDTO;
+import com.pet.springdata.repository.trivia.TriviaRepository;
 import com.pet.springdata.repository.trivia.TriviaRepositoryCustom;
 import com.pet.springdata.repository.trivia.model.Trivia;
-import com.pet.springdata.repository.trivia.TriviaRepository;
 import com.pet.springdata.service.trivia.ITriviaService;
 import com.pet.springdata.util.trivia.TriviaUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
-@CacheConfig(cacheNames = "EventConfig")
+@Cacheable(value = "triviaCache")
 public class TriviaService implements ITriviaService {
 
     @NonNull
@@ -46,6 +46,12 @@ public class TriviaService implements ITriviaService {
         Collections.shuffle(triviaList);
 
         return triviaList.subList(0, numberOfTrivia);
+    }
+
+    @Override
+    public List<Trivia> findAllTrivia() {
+        log.info("Finding all Trivia.");
+        return triviaRepository.findAll();
     }
 
     @Override

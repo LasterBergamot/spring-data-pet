@@ -8,15 +8,17 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@CacheConfig(cacheNames = "EventConfig")
+@Cacheable(value = "userCache")
 public class TriviaUserService implements UserService {
 
     @NonNull
@@ -38,6 +40,12 @@ public class TriviaUserService implements UserService {
         return userRepository
                 .findById(id)
                 .orElse(getDefaultUser());
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        log.info("Finding all User.");
+        return userRepository.findAll();
     }
 
     private User getDefaultUser() {

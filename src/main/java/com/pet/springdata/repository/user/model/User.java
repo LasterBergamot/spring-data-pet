@@ -31,7 +31,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Getter
 @Setter
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable {
 

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -26,5 +28,11 @@ public class UserRestController {
         log.info("Saving User with firstName: {}, middleName: {}, lastName: {}, and phoneNumber: {}.", firstName, middleName, lastName, phoneNumber);
 
         return userService.saveUser(firstName, middleName, lastName, phoneNumber);
+    }
+
+    @GetMapping("/all")
+    public List<User> findAllUser() {
+        log.info("Finding all User.");
+        return userService.findAllUser();
     }
 }
