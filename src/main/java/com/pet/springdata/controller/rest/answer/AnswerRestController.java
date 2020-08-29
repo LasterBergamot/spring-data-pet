@@ -49,7 +49,8 @@ public class AnswerRestController {
     }
 
     @GetMapping(REQUEST_MAPPING_CORRECTNESS_USER)
-    public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectnessAndUserId(@RequestParam(REQUEST_PARAM_ANSWERED_CORRECTLY) String answeredCorrectly, @RequestParam(REQUEST_PARAM_USER_ID) String userId) {
+    public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectnessAndUserId(@RequestParam(REQUEST_PARAM_ANSWERED_CORRECTLY) String answeredCorrectly,
+                                                                                     @RequestParam(REQUEST_PARAM_USER_ID) String userId) {
         log.info("Getting all Answers with correctness: {}, and UserId: {}", answeredCorrectly, userId);
         return answerService.getAllAnswersDependingOnCorrectnessAndUserId(answeredCorrectly, userId);
     }

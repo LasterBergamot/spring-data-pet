@@ -20,7 +20,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional
 @Cacheable(value = "triviaCache")
 public class TriviaService implements ITriviaService {
 
@@ -31,6 +30,7 @@ public class TriviaService implements ITriviaService {
     private final TriviaRepositoryCustom triviaRepositoryCustom;
 
     @Override
+    @Transactional
     public ResponseEntity<List<Trivia>> saveTrivia(List<TriviaDTO> triviaDTOList) {
         log.info("Saving {} Trivia.", triviaDTOList.size());
         List<Trivia> triviaList = triviaRepository.saveAll(TriviaUtil.transformTriviaDTOListToTriviaList(triviaDTOList));
@@ -40,6 +40,7 @@ public class TriviaService implements ITriviaService {
 
     //TODO: for larger databases this approach is not suitable, do it in a different way
     @Override
+    @Transactional
     public List<Trivia> findTrivia(int numberOfTrivia) {
         log.info("Getting {} Trivia from the database.", numberOfTrivia);
         List<Trivia> triviaList = triviaRepository.findAll();
@@ -49,12 +50,14 @@ public class TriviaService implements ITriviaService {
     }
 
     @Override
+    @Transactional
     public List<Trivia> findAllTrivia() {
         log.info("Finding all Trivia.");
         return triviaRepository.findAll();
     }
 
     @Override
+    @Transactional
     public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty) {
         log.info("Getting Trivia with category: {}, type: {}, and difficulty: {}.", category, type, difficulty);
         return ResponseEntity.ok(triviaRepositoryCustom.findTriviaByCategoryTypeAndDifficulty(category, type, difficulty));

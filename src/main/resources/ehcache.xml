@@ -2,6 +2,19 @@
 <!DOCTYPE ehcache>
 <ehcache>
     <diskStore path="java.io.tmpdir"/>
+    <defaultCache maxEntriesLocalHeap="10000"
+                  eternal="false"
+                  timeToIdleSeconds="120"
+                  timeToLiveSeconds="120"
+                  diskSpoolBufferSizeMB="30"
+                  maxEntriesLocalDisk="10000000"
+                  diskExpiryThreadIntervalSeconds="120"
+                  memoryStoreEvictionPolicy="LRU"
+                  statistics="true">
+                  <persistence
+                          strategy="localTempSwap"
+                  />
+    </defaultCache>
     <cache name="answerCache"
            maxElementsInMemory="10000"
            eternal="false"

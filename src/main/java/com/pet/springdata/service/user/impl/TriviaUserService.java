@@ -11,6 +11,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -25,6 +26,7 @@ public class TriviaUserService implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    @Transactional
     public ResponseEntity<User> saveUser(String firstName, String middleName, String lastName, String phoneNumber) {
         log.info("Saving User with firstName: {}, middleName: {}, lastName: {}, and phoneNumber: {}.", firstName, middleName, lastName, phoneNumber);
         Name name = new Name(firstName, middleName, lastName);
@@ -35,6 +37,7 @@ public class TriviaUserService implements UserService {
     }
 
     @Override
+    @Transactional
     public User findById(short id) {
         log.info("Finding User with id: {}", id);
         return userRepository
@@ -43,6 +46,7 @@ public class TriviaUserService implements UserService {
     }
 
     @Override
+    @Transactional
     public List<User> findAllUser() {
         log.info("Finding all User.");
         return userRepository.findAll();
