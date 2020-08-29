@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.springframework.cache.annotation.Cacheable;
 
 import javax.persistence.Column;
@@ -29,6 +32,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Indexed
 public class Answer implements Serializable {
 
     @Id
@@ -39,18 +43,22 @@ public class Answer implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @NonNull
+    @IndexedEmbedded
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "trivia_id")
     @NonNull
+    @IndexedEmbedded
     private Trivia trivia;
 
     @Column(name = "selected_answer")
     @NonNull
+    @Field
     private String selectedAnswer;
 
     @Column(name = "answered_correctly")
     @NonNull
+    @Field
     private Boolean answeredCorrectly;
 }
