@@ -11,4 +11,9 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet  author="andrew"  id="users-table-drop-email-column">
+        <dropColumn  tableName="users">
+            <column  name="email"/>
+        </dropColumn>
+    </changeSet>
 </databaseChangeLog>
