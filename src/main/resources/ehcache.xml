@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ehcache>
+<ehcache>
+    <diskStore path="java.io.tmpdir"/>
+    <defaultCache maxEntriesLocalHeap="10000"
+                  eternal="false"
+                  timeToIdleSeconds="120"
+                  timeToLiveSeconds="120"
+                  diskSpoolBufferSizeMB="30"
+                  maxEntriesLocalDisk="10000000"
+                  diskExpiryThreadIntervalSeconds="120"
+                  memoryStoreEvictionPolicy="LRU"
+                  statistics="true">
+                  <persistence
+                          strategy="localTempSwap"
+                  />
+    </defaultCache>
+    <cache name="answerCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="true"
+           statistics="true"
+    />
+    <cache name="triviaCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="true"
+           statistics="true"
+    />
+    <cache name="userCache"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="3600"
+           overflowToDisk="true"
+           statistics="true"
+    />
+</ehcache>

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -19,6 +21,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -27,7 +30,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class User {
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,5 +51,6 @@ public class User {
     @CollectionTable(name = "phone_numbers", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "phone_number")
     @NonNull
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<String> phoneNumbers;
 }

@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
+import org.springframework.cache.annotation.Cacheable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -24,7 +28,8 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
-public class Trivia {
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+public class Trivia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

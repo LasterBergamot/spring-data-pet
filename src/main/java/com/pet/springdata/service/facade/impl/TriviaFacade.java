@@ -45,6 +45,14 @@ public class TriviaFacade implements OpenTriviaDatabaseFacade {
         return triviaService.findTrivia(numberOfTrivia);
     }
 
+    //TODO: map here to DTO
+    @Override
+    public List<Trivia> findAllTrivia() {
+        log.info("Finding all Trivia.");
+        return triviaService.findAllTrivia();
+    }
+
+
     @Override
     public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty) {
         log.info("Getting Trivia with category: {}, type: {}, and difficulty: {}.", category, type, difficulty);

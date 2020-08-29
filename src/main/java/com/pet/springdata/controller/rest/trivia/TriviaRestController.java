@@ -45,6 +45,12 @@ public class TriviaRestController {
         return openTriviaDatabaseFacade.saveTrivia(numberOfTrivia);
     }
 
+    @GetMapping("/all")
+    public List<Trivia> findAllTrivia() {
+        log.info("Finding all Trivia.");
+        return openTriviaDatabaseFacade.findAllTrivia();
+    }
+
     @GetMapping(REQUEST_MAPPING_DETAILS)
     public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(@RequestParam(value = REQUEST_PARAM_CATEGORY, required = false) String category,
                                                                               @RequestParam(value = REQUEST_PARAM_TYPE, required = false) String type,
