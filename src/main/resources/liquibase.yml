@@ -1,0 +1,7 @@
+url: jdbc:postgresql://localhost:5432/spring-data-pet
+username: postgres
+password: admin
+driver: com.mysql.jdbc.Driver
+referenceUrl: "hibernate:com.pet.springdata.repository?dialect=org.hibernate.dialect.PostgreSQLDialect"
+changeLogFile: "classpath:/db/changelog/db.changelog-master.xml"
+diffChangeLogFile: "src/main/resources/liquibase-diff-changeLog.yml"
