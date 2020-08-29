@@ -11,7 +11,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.springframework.cache.annotation.Cacheable;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Indexed
 public class Trivia implements Serializable {
 
     @Id
@@ -37,23 +39,29 @@ public class Trivia implements Serializable {
     private Short id;
 
     @NonNull
+    @Field
     private String category;
 
     @NonNull
+    @Field
     private String type;
 
     @NonNull
+    @Field
     private String difficulty;
 
     @NonNull
+    @Field
     private String question;
 
     @Column(name = "correct_answer")
     @NonNull
+    @Field
     private String correctAnswer;
 
     @Type(type = "list-array")
     @Column(name = "incorrect_answers")
     @NonNull
+    @Field
     private List<String> incorrectAnswers;
 }

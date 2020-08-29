@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -31,6 +33,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Indexed
 public class User implements Serializable {
 
     @Id
@@ -45,6 +48,7 @@ public class User implements Serializable {
             @AttributeOverride(name = "lastName", column = @Column(name = "last_name"))
     })
     @NonNull
+    @IndexedEmbedded
     private Name name;
 
     @ElementCollection
@@ -52,5 +56,6 @@ public class User implements Serializable {
     @Column(name = "phone_number")
     @NonNull
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @IndexedEmbedded
     private Set<String> phoneNumbers;
 }

@@ -37,6 +37,12 @@
 			<version>${hibernate.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Hibernate Search: required for indexes -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search-orm</artifactId>
+			<version>5.11.5.Final</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
