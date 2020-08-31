@@ -4,7 +4,7 @@ server:
 # use local PostgreSQL, the Docker version is not working yet
 spring:
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-master.xml
+    change-log: classpath:/db/changelog/db.changelog-master.yml
   datasource:
     url: jdbc:postgresql://localhost:5432/spring-data-pet
     username: postgres
