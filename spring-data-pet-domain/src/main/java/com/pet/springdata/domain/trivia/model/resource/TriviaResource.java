@@ -5,12 +5,13 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
 @Builder
-public class TriviaResource {
+public class TriviaResource implements Serializable {
 
     @NonNull
     private final Short id;

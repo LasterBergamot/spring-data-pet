@@ -14,7 +14,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.FieldBridge;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,6 +68,6 @@ public class Trivia implements Serializable {
     @Type(type = "list-array")
     @Column(name = "incorrect_answers")
     @NonNull
-    @Field
+    @IndexedEmbedded
     private List<String> incorrectAnswers;
 }

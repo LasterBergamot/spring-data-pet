@@ -7,10 +7,12 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serializable;
+
 @RequiredArgsConstructor
 @Getter
 @Builder
-public class AnswerResource {
+public class AnswerResource implements Serializable {
 
     @NonNull
     private final Short id;

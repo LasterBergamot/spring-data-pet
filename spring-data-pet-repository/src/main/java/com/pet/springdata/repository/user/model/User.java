@@ -20,6 +20,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -55,7 +56,7 @@ public class User implements Serializable {
     @IndexedEmbedded
     private Name name;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "phone_numbers", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "phone_number")
     @NonNull

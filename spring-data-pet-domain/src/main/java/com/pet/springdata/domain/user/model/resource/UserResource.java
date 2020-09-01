@@ -6,12 +6,13 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Set;
 
 @RequiredArgsConstructor
 @Getter
 @Builder
-public class UserResource {
+public class UserResource implements Serializable {
 
     @NonNull
     private final Short id;
