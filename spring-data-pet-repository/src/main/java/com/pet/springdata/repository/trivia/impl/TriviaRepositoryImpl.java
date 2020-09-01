@@ -2,11 +2,9 @@ package com.pet.springdata.repository.trivia.impl;
 
 import com.pet.springdata.repository.trivia.TriviaRepositoryCustom;
 import com.pet.springdata.repository.trivia.model.Trivia;
-import com.pet.springdata.repository.trivia.model.Trivia_;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -35,9 +33,9 @@ public class TriviaRepositoryImpl implements TriviaRepositoryCustom {
         Root<Trivia> triviaRoot = criteriaQuery.from(Trivia.class);
         List<Predicate> predicates = new ArrayList<>();
 
-        addValueToPredicatesIfItIsNotNull(predicates, criteriaBuilder, triviaRoot.get(Trivia_.category), category);
-        addValueToPredicatesIfItIsNotNull(predicates, criteriaBuilder, triviaRoot.get(Trivia_.type), type);
-        addValueToPredicatesIfItIsNotNull(predicates, criteriaBuilder, triviaRoot.get(Trivia_.difficulty), difficulty);
+//        addValueToPredicatesIfItIsNotNull(predicates, criteriaBuilder, triviaRoot.get(Trivia_.category), category);
+//        addValueToPredicatesIfItIsNotNull(predicates, criteriaBuilder, triviaRoot.get(Trivia_.type), type);
+//        addValueToPredicatesIfItIsNotNull(predicates, criteriaBuilder, triviaRoot.get(Trivia_.difficulty), difficulty);
 
         criteriaQuery.where(predicates.toArray(Predicate[]::new));
 

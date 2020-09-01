@@ -10,6 +10,7 @@ public class Constants {
     public static final String REQUEST_MAPPING_ALL = "/all";
     public static final String REQUEST_MAPPING_CORRECTNESS = "/correctness";
     public static final String REQUEST_MAPPING_USER = "/user";
+    public static final String REQUEST_MAPPING_SAVE_USER = "/saveUser";
     public static final String REQUEST_MAPPING_CORRECTNESS_USER = "/correctnessUser";
     public static final String REQUEST_MAPPING_TRIVIA = "/trivia";
     public static final String REQUEST_MAPPING_GET_TRIVIA = "/getTrivia";
@@ -22,4 +23,8 @@ public class Constants {
     public static final String REQUEST_PARAM_CATEGORY = "category";
     public static final String REQUEST_PARAM_TYPE = "type";
     public static final String REQUEST_PARAM_DIFFICULTY = "difficulty";
+    public static final String REQUEST_PARAM_FIRST_NAME = "firstName";
+    public static final String REQUEST_PARAM_MIDDLE_NAME = "middleName";
+    public static final String REQUEST_PARAM_LAST_NAME = "lastName";
+    public static final String REQUEST_PARAM_PHONE_NUMBER = "phoneNumber";
 }

@@ -1,7 +1,7 @@
 package com.pet.springdata.repository.answer.specification;
 
-import com.pet.springdata.repository.criteria.SearchCriteria;
 import com.pet.springdata.repository.answer.model.Answer;
+import com.pet.springdata.repository.criteria.SearchCriteria;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Transient;
@@ -13,10 +13,10 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import static com.pet.springdata.util.Constants.SYMBOL_COLON_EQUAL;
-import static com.pet.springdata.util.Constants.SYMBOL_GREATER_THAN_OR_EQUAL_TO;
-import static com.pet.springdata.util.Constants.SYMBOL_LESS_THAN_OR_EQUAL_TO;
-import static com.pet.springdata.util.Constants.SYMBOL_PERCENT;
+import static com.pet.springdata.repository.util.Constants.SYMBOL_COLON_EQUAL;
+import static com.pet.springdata.repository.util.Constants.SYMBOL_GREATER_THAN_OR_EQUAL_TO;
+import static com.pet.springdata.repository.util.Constants.SYMBOL_LESS_THAN_OR_EQUAL_TO;
+import static com.pet.springdata.repository.util.Constants.SYMBOL_PERCENT;
 
 @RequiredArgsConstructor
 public class AnswerSpecification implements Specification<Answer> {

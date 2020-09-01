@@ -1,7 +1,7 @@
 package com.pet.springdata.web.controller.rest.user;
 
-import com.pet.springdata.repository.user.model.User;
 import com.pet.springdata.domain.user.UserService;
+import com.pet.springdata.domain.user.model.resource.UserResource;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.pet.springdata.web.util.Constants.REQUEST_MAPPING_ALL;
+import static com.pet.springdata.web.util.Constants.REQUEST_MAPPING_SAVE_USER;
+import static com.pet.springdata.web.util.Constants.REQUEST_MAPPING_USER;
+import static com.pet.springdata.web.util.Constants.REQUEST_PARAM_FIRST_NAME;
+import static com.pet.springdata.web.util.Constants.REQUEST_PARAM_LAST_NAME;
+import static com.pet.springdata.web.util.Constants.REQUEST_PARAM_MIDDLE_NAME;
+import static com.pet.springdata.web.util.Constants.REQUEST_PARAM_PHONE_NUMBER;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping(REQUEST_MAPPING_USER)
 @RequiredArgsConstructor
 @Slf4j
 public class UserRestController {
@@ -22,16 +30,16 @@ public class UserRestController {
     @NonNull
     private final UserService userService;
 
-    @GetMapping("/saveUser")
-    public ResponseEntity<User> saveUser(@RequestParam(name = "firstName") String firstName, @RequestParam(name = "middleName") String middleName,
-                                         @RequestParam(name = "lastName") String lastName, @RequestParam(name = "phoneNumber") String phoneNumber) {
+    @GetMapping(REQUEST_MAPPING_SAVE_USER)
+    public ResponseEntity<UserResource> saveUser(@RequestParam(name = REQUEST_PARAM_FIRST_NAME) String firstName, @RequestParam(name = REQUEST_PARAM_MIDDLE_NAME) String middleName,
+                                                 @RequestParam(name = REQUEST_PARAM_LAST_NAME) String lastName, @RequestParam(name = REQUEST_PARAM_PHONE_NUMBER) String phoneNumber) {
         log.info("Saving User with firstName: {}, middleName: {}, lastName: {}, and phoneNumber: {}.", firstName, middleName, lastName, phoneNumber);
 
         return userService.saveUser(firstName, middleName, lastName, phoneNumber);
     }
 
-    @GetMapping("/all")
-    public List<User> findAllUser() {
+    @GetMapping(REQUEST_MAPPING_ALL)
+    public List<UserResource> findAllUser() {
         log.info("Finding all User.");
         return userService.findAllUser();
     }
