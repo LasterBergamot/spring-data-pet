@@ -24,8 +24,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+import static com.pet.springdata.repository.util.Constants.COLUMN_NAME_ANSWERED_CORRECTLY;
+import static com.pet.springdata.repository.util.Constants.COLUMN_NAME_SELECTED_ANSWER;
+import static com.pet.springdata.repository.util.Constants.JOIN_COLUMN_TRIVIA_ID;
+import static com.pet.springdata.repository.util.Constants.JOIN_COLUMN_USER_ID;
+import static com.pet.springdata.repository.util.Constants.TABLE_NAME_ANSWERS;
+
 @Entity
-@Table(name = "answers")
+@Table(name = TABLE_NAME_ANSWERS)
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
@@ -40,23 +46,23 @@ public class Answer implements Serializable {
     private Short id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = JOIN_COLUMN_USER_ID)
     @NonNull
     @IndexedEmbedded
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "trivia_id")
+    @JoinColumn(name = JOIN_COLUMN_TRIVIA_ID)
     @NonNull
     @IndexedEmbedded
     private Trivia trivia;
 
-    @Column(name = "selected_answer")
+    @Column(name = COLUMN_NAME_SELECTED_ANSWER)
     @NonNull
     @Field
     private String selectedAnswer;
 
-    @Column(name = "answered_correctly")
+    @Column(name = COLUMN_NAME_ANSWERED_CORRECTLY)
     @NonNull
     @Field
     private Boolean answeredCorrectly;
