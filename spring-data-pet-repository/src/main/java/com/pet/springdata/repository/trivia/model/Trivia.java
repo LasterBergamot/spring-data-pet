@@ -2,6 +2,8 @@ package com.pet.springdata.repository.trivia.model;
 
 import com.vladmihalcea.hibernate.type.array.ListArrayType;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -27,8 +29,10 @@ import java.util.List;
 @Table(name = "trivia")
 @TypeDef(name = "list-array", typeClass = ListArrayType.class)
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
+@Builder
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @Indexed
 public class Trivia implements Serializable {

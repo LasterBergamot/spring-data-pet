@@ -12,4 +12,9 @@ public class Constants {
     public static final String EMPTY_STRING = "";
 
     public static final int MAXIMUM_NUMBER_OF_TRIVIA_PER_REQUEST = 50;
+
+    public static final String KEY_ANSWERED_CORRECTLY = "answeredCorrectly";
+    public static final String KEY_USER = "user";
+
+    public static final String SYMBOL_COLON_EQUAL = ":";
 }

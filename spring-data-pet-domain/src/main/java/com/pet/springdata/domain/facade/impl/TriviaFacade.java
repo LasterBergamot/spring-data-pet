@@ -1,6 +1,7 @@
 package com.pet.springdata.domain.facade.impl;
 
-import com.pet.springdata.domain.trivia.model.TriviaDTO;
+import com.pet.springdata.domain.trivia.model.OpenTriviaDatabaseResult;
+import com.pet.springdata.domain.trivia.model.resource.TriviaResource;
 import com.pet.springdata.repository.trivia.model.Trivia;
 import com.pet.springdata.domain.facade.OpenTriviaDatabaseFacade;
 import com.pet.springdata.domain.trivia.IOpenTriviaDatabaseService;
@@ -25,36 +26,35 @@ public class TriviaFacade implements OpenTriviaDatabaseFacade {
     private final ITriviaService triviaService;
 
     @Override
-    public ResponseEntity<List<TriviaDTO>> getTrivia(int numberOfTrivia) {
+    public ResponseEntity<List<OpenTriviaDatabaseResult>> getTrivia(int numberOfTrivia) {
         log.info("Getting {} Trivia.", numberOfTrivia);
         return openTriviaDatabaseService.getTrivia(numberOfTrivia);
     }
 
     @Override
-    public ResponseEntity<List<Trivia>> saveTrivia(int numberOfTrivia) {
+    public ResponseEntity<List<TriviaResource>> saveTrivia(int numberOfTrivia) {
         log.info("Saving {} Trivia.", numberOfTrivia);
-        ResponseEntity<List<TriviaDTO>> triviaDTOListResponse = openTriviaDatabaseService.getTrivia(numberOfTrivia);
+        ResponseEntity<List<OpenTriviaDatabaseResult>> triviaDTOListResponse = openTriviaDatabaseService.getTrivia(numberOfTrivia);
 
         return triviaService.saveTrivia(triviaDTOListResponse.getBody());
     }
 
     @Override
-    public List<Trivia> findTrivia(int numberOfTrivia) {
+    public List<TriviaResource> findTrivia(int numberOfTrivia) {
         log.info("Getting {} Trivia from the database.", numberOfTrivia);
 
         return triviaService.findTrivia(numberOfTrivia);
     }
 
-    //TODO: map here to DTO
     @Override
-    public List<Trivia> findAllTrivia() {
+    public List<TriviaResource> findAllTrivia() {
         log.info("Finding all Trivia.");
         return triviaService.findAllTrivia();
     }
 
 
     @Override
-    public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty) {
+    public ResponseEntity<List<TriviaResource>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty) {
         log.info("Getting Trivia with category: {}, type: {}, and difficulty: {}.", category, type, difficulty);
         return triviaService.findTriviaByCategoryTypeAndDifficulty(category, type, difficulty);
     }

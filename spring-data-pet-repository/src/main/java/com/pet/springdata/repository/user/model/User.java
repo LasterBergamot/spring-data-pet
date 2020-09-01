@@ -1,6 +1,8 @@
 package com.pet.springdata.repository.user.model;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -29,9 +31,11 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Builder
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Indexed
 public class User implements Serializable {

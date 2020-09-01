@@ -16,10 +16,10 @@ public class OpenTriviaDatabaseResponse {
     private String responseCode;
 
     @NonNull
-    private List<TriviaDTO> results;
+    private List<OpenTriviaDatabaseResult> results;
 
     @JsonCreator
-    public OpenTriviaDatabaseResponse(@JsonProperty("response_code") String responseCode, @JsonProperty("results") List<TriviaDTO> results) {
+    public OpenTriviaDatabaseResponse(@JsonProperty("response_code") String responseCode, @JsonProperty("results") List<OpenTriviaDatabaseResult> results) {
         this.responseCode = responseCode;
         this.results = results;
     }

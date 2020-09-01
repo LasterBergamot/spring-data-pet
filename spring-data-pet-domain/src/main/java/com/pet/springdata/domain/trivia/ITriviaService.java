@@ -1,16 +1,16 @@
 package com.pet.springdata.domain.trivia;
 
-import com.pet.springdata.domain.trivia.model.TriviaDTO;
-import com.pet.springdata.repository.trivia.model.Trivia;
+import com.pet.springdata.domain.trivia.model.OpenTriviaDatabaseResult;
+import com.pet.springdata.domain.trivia.model.resource.TriviaResource;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ITriviaService {
-    ResponseEntity<List<Trivia>> saveTrivia(List<TriviaDTO> triviaDTOList);
+    ResponseEntity<List<TriviaResource>> saveTrivia(List<OpenTriviaDatabaseResult> openTriviaDatabaseResultList);
 
-    List<Trivia> findTrivia(int numberOfTrivia);
-    List<Trivia> findAllTrivia();
+    List<TriviaResource> findTrivia(int numberOfTrivia);
+    List<TriviaResource> findAllTrivia();
 
-    ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty);
+    ResponseEntity<List<TriviaResource>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty);
 }

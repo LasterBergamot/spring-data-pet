@@ -1,10 +1,12 @@
 package com.pet.springdata.domain.answer.impl;
 
+import com.pet.springdata.domain.answer.AnswerService;
+import com.pet.springdata.domain.answer.model.resource.AnswerResource;
+import com.pet.springdata.domain.answer.util.AnswerUtil;
 import com.pet.springdata.repository.answer.AnswerRepository;
 import com.pet.springdata.repository.answer.model.Answer;
 import com.pet.springdata.repository.answer.specification.AnswerSpecification;
 import com.pet.springdata.repository.criteria.SearchCriteria;
-import com.pet.springdata.domain.answer.AnswerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.pet.springdata.util.Constants.KEY_ANSWERED_CORRECTLY;
-import static com.pet.springdata.util.Constants.KEY_USER;
-import static com.pet.springdata.util.Constants.SYMBOL_COLON_EQUAL;
+import static com.pet.springdata.domain.util.Constants.KEY_ANSWERED_CORRECTLY;
+import static com.pet.springdata.domain.util.Constants.KEY_USER;
+import static com.pet.springdata.domain.util.Constants.SYMBOL_COLON_EQUAL;
 
 @Service
 @RequiredArgsConstructor
@@ -33,42 +35,46 @@ public class TriviaAnswerService implements AnswerService {
 
     @Override
     @Transactional
-    public void saveAnswer(Answer answer) {
+    public AnswerResource saveAnswer(Answer answer) {
         log.info("Saving Answer: {}", answer);
-        answerRepository.save(answer);
+        return AnswerUtil.transformAnswerToAnswerResource(answerRepository.save(answer));
     }
 
     @Override
     @Transactional
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-    public List<Answer> getAllAnswers() {
+    public List<AnswerResource> getAllAnswers() {
         log.info("Getting all Answers.");
-        return answerRepository.findAll();
+        return AnswerUtil.transformAnswerListToAnswerResourceList(answerRepository.findAll());
     }
 
     @Override
     @Transactional
-    public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectness(String answeredCorrectly) {
+    public ResponseEntity<List<AnswerResource>> getAllAnswersDependingOnCorrectness(String answeredCorrectly) {
         log.info("Getting all Answers with correctness: {}", answeredCorrectly);
         SearchCriteria searchCriteria = new SearchCriteria(KEY_ANSWERED_CORRECTLY, SYMBOL_COLON_EQUAL, Boolean.parseBoolean(answeredCorrectly));
         AnswerSpecification answerSpecification = new AnswerSpecification(searchCriteria);
 
-        return ResponseEntity.ok(answerRepository.findAll(answerSpecification));
+        List<Answer> answerList = answerRepository.findAll(answerSpecification);
+
+        return ResponseEntity.ok(AnswerUtil.transformAnswerListToAnswerResourceList(answerList));
     }
 
     @Override
     @Transactional
-    public ResponseEntity<List<Answer>> getAllAnswersOfUser(String userId) {
+    public ResponseEntity<List<AnswerResource>> getAllAnswersOfUser(String userId) {
         log.info("Getting all Answers of User with id: {}", userId);
         SearchCriteria searchCriteria = new SearchCriteria(KEY_USER, SYMBOL_COLON_EQUAL, Short.parseShort(userId));
         AnswerSpecification answerSpecification = new AnswerSpecification(searchCriteria);
 
-        return ResponseEntity.ok(answerRepository.findAll(answerSpecification));
+        List<Answer> answerList = answerRepository.findAll(answerSpecification);
+
+        return ResponseEntity.ok(AnswerUtil.transformAnswerListToAnswerResourceList(answerList));
     }
 
     @Override
     @Transactional
-    public ResponseEntity<List<Answer>> getAllAnswersDependingOnCorrectnessAndUserId(String answeredCorrectly, String userId) {
+    public ResponseEntity<List<AnswerResource>> getAllAnswersDependingOnCorrectnessAndUserId(String answeredCorrectly, String userId) {
         log.info("Getting all Answers with correctness: {}, and UserId: {}", answeredCorrectly, userId);
         SearchCriteria searchCriteriaAnsweredCorrectly = new SearchCriteria(KEY_ANSWERED_CORRECTLY, SYMBOL_COLON_EQUAL, Boolean.parseBoolean(answeredCorrectly));
         AnswerSpecification answerSpecificationAnsweredCorrectly = new AnswerSpecification(searchCriteriaAnsweredCorrectly);
@@ -76,7 +82,8 @@ public class TriviaAnswerService implements AnswerService {
         SearchCriteria searchCriteriaUserId = new SearchCriteria(KEY_USER, SYMBOL_COLON_EQUAL, Short.parseShort(userId));
         AnswerSpecification answerSpecificationUserId = new AnswerSpecification(searchCriteriaUserId);
 
+        List<Answer> answerList = answerRepository.findAll(Specification.where(answerSpecificationAnsweredCorrectly).and(answerSpecificationUserId));
 
-        return ResponseEntity.ok(answerRepository.findAll(Specification.where(answerSpecificationAnsweredCorrectly).and(answerSpecificationUserId)));
+        return ResponseEntity.ok(AnswerUtil.transformAnswerListToAnswerResourceList(answerList));
     }
 }

@@ -1,14 +1,15 @@
 package com.pet.springdata.domain.user;
 
+import com.pet.springdata.domain.user.model.resource.UserResource;
 import com.pet.springdata.repository.user.model.User;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface UserService {
-    ResponseEntity<User> saveUser(String firstName, String middleName, String lastName, String phoneNumber);
+    ResponseEntity<UserResource> saveUser(String firstName, String middleName, String lastName, String phoneNumber);
 
-    User findById(short id);
+    UserResource findById(short id);
 
-    List<User> findAllUser();
+    List<UserResource> findAllUser();
 }

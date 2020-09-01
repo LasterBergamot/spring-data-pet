@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TriviaDTO {
+public class OpenTriviaDatabaseResult {
 
     @NonNull
     private String category;
@@ -33,8 +33,8 @@ public class TriviaDTO {
     private List<String> incorrectAnswers;
 
     @JsonCreator
-    public TriviaDTO(@JsonProperty("category") String category, @JsonProperty("type") String type, @JsonProperty("difficulty") String difficulty, @JsonProperty("question") String question,
-                     @JsonProperty("correct_answer") String correctAnswer, @JsonProperty("incorrect_answers") List<String> incorrectAnswers) {
+    public OpenTriviaDatabaseResult(@JsonProperty("category") String category, @JsonProperty("type") String type, @JsonProperty("difficulty") String difficulty, @JsonProperty("question") String question,
+                                    @JsonProperty("correct_answer") String correctAnswer, @JsonProperty("incorrect_answers") List<String> incorrectAnswers) {
         this.category = category;
         this.type = type;
         this.difficulty = difficulty;

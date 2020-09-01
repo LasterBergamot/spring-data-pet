@@ -1,11 +1,12 @@
 package com.pet.springdata.domain.trivia.impl;
 
-import com.pet.springdata.domain.trivia.model.TriviaDTO;
+import com.pet.springdata.domain.trivia.ITriviaService;
+import com.pet.springdata.domain.trivia.model.OpenTriviaDatabaseResult;
+import com.pet.springdata.domain.trivia.model.resource.TriviaResource;
+import com.pet.springdata.domain.trivia.util.OpenTriviaDatabaseUtil;
 import com.pet.springdata.repository.trivia.TriviaRepository;
 import com.pet.springdata.repository.trivia.TriviaRepositoryCustom;
 import com.pet.springdata.repository.trivia.model.Trivia;
-import com.pet.springdata.domain.trivia.ITriviaService;
-import com.pet.springdata.domain.util.trivia.TriviaUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,35 +32,37 @@ public class TriviaService implements ITriviaService {
 
     @Override
     @Transactional
-    public ResponseEntity<List<Trivia>> saveTrivia(List<TriviaDTO> triviaDTOList) {
-        log.info("Saving {} Trivia.", triviaDTOList.size());
-        List<Trivia> triviaList = triviaRepository.saveAll(TriviaUtil.transformTriviaDTOListToTriviaList(triviaDTOList));
+    public ResponseEntity<List<TriviaResource>> saveTrivia(List<OpenTriviaDatabaseResult> openTriviaDatabaseResultList) {
+        log.info("Saving {} Trivia.", openTriviaDatabaseResultList.size());
+        List<Trivia> triviaList = triviaRepository.saveAll(OpenTriviaDatabaseUtil.transformOpenTriviaDatabaseResultListToTriviaList(openTriviaDatabaseResultList));
 
-        return ResponseEntity.ok(triviaList);
+        return ResponseEntity.ok(OpenTriviaDatabaseUtil.transformTriviaListToTriviaResourceList(triviaList));
     }
 
     //TODO: for larger databases this approach is not suitable, do it in a different way
     @Override
     @Transactional
-    public List<Trivia> findTrivia(int numberOfTrivia) {
+    public List<TriviaResource> findTrivia(int numberOfTrivia) {
         log.info("Getting {} Trivia from the database.", numberOfTrivia);
         List<Trivia> triviaList = triviaRepository.findAll();
         Collections.shuffle(triviaList);
 
-        return triviaList.subList(0, numberOfTrivia);
+        return OpenTriviaDatabaseUtil.transformTriviaListToTriviaResourceList(triviaList.subList(0, numberOfTrivia));
     }
 
     @Override
     @Transactional
-    public List<Trivia> findAllTrivia() {
+    public List<TriviaResource> findAllTrivia() {
         log.info("Finding all Trivia.");
-        return triviaRepository.findAll();
+        return OpenTriviaDatabaseUtil.transformTriviaListToTriviaResourceList(triviaRepository.findAll());
     }
 
     @Override
     @Transactional
-    public ResponseEntity<List<Trivia>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty) {
+    public ResponseEntity<List<TriviaResource>> findTriviaByCategoryTypeAndDifficulty(String category, String type, String difficulty) {
         log.info("Getting Trivia with category: {}, type: {}, and difficulty: {}.", category, type, difficulty);
-        return ResponseEntity.ok(triviaRepositoryCustom.findTriviaByCategoryTypeAndDifficulty(category, type, difficulty));
+        List<Trivia> triviaList = triviaRepositoryCustom.findTriviaByCategoryTypeAndDifficulty(category, type, difficulty);
+
+        return ResponseEntity.ok(OpenTriviaDatabaseUtil.transformTriviaListToTriviaResourceList(triviaList));
     }
 }

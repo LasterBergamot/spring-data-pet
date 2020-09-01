@@ -1,5 +1,9 @@
 package com.pet.springdata.domain.quiz.impl;
 
+import com.pet.springdata.domain.trivia.model.resource.TriviaResource;
+import com.pet.springdata.domain.trivia.util.OpenTriviaDatabaseUtil;
+import com.pet.springdata.domain.user.model.resource.UserResource;
+import com.pet.springdata.domain.user.util.UserUtil;
 import com.pet.springdata.repository.answer.model.Answer;
 import com.pet.springdata.domain.answer.model.PossibleAnswer;
 import com.pet.springdata.repository.trivia.model.Trivia;
@@ -34,13 +38,13 @@ public class TriviaQuizService implements QuizService {
     @Override
     public void play() {
         Scanner scanner = new Scanner(System.in);
-        User user = findById((short) 1);
+        UserResource userResource = findById((short) 1);
 
-        printWelcomeInformation(user.getName());
-        printQuestions(getDesiredNumberOfTriviaFromTheDatabase(scanner), scanner, user);
+        printWelcomeInformation(userResource.getName());
+        printQuestions(getDesiredNumberOfTriviaFromTheDatabase(scanner), scanner, userResource);
     }
 
-    private User findById(short id) {
+    private UserResource findById(short id) {
         return userService.findById(id);
     }
 
@@ -49,7 +53,7 @@ public class TriviaQuizService implements QuizService {
         System.out.printf("You are playing as %s %s.%n", name.getFirstName(), name.getLastName());
     }
 
-    private List<Trivia> getDesiredNumberOfTriviaFromTheDatabase(Scanner scanner) {
+    private List<TriviaResource> getDesiredNumberOfTriviaFromTheDatabase(Scanner scanner) {
         System.out.println("How many questions would you like to answer?");
         int desiredNumberOfQuestions = scanner.nextInt();
 
@@ -57,22 +61,22 @@ public class TriviaQuizService implements QuizService {
         return openTriviaDatabaseFacade.findTrivia(desiredNumberOfQuestions);
     }
 
-    private void printQuestions(List<Trivia> triviaList, Scanner scanner, User user) {
+    private void printQuestions(List<TriviaResource> triviaResourceList, Scanner scanner, UserResource userResource) {
         System.out.println("Printing the questions:");
-        int triviaListSize = triviaList.size();
+        int triviaListSize = triviaResourceList.size();
 
         for (int numberOfQuestion = 1; numberOfQuestion <= triviaListSize; numberOfQuestion++) {
-            Trivia trivia = triviaList.get(numberOfQuestion - 1);
-            String correctAnswer = trivia.getCorrectAnswer();
-            List<PossibleAnswer> possibleAnswers = createPossibleAnswersFromTriviaAnswers(correctAnswer, trivia.getIncorrectAnswers());
-            printTrivia(numberOfQuestion, trivia, possibleAnswers);
+            TriviaResource triviaResource = triviaResourceList.get(numberOfQuestion - 1);
+            String correctAnswer = triviaResource.getCorrectAnswer();
+            List<PossibleAnswer> possibleAnswers = createPossibleAnswersFromTriviaAnswers(correctAnswer, triviaResource.getIncorrectAnswers());
+            printTrivia(numberOfQuestion, triviaResource, possibleAnswers);
 
             PossibleAnswer selectedAnswer = selectAnswer(scanner, possibleAnswers);
             String answer = selectedAnswer.getAnswer();
             boolean answeredCorrectly = answer.equals(correctAnswer);
             printMessageDependingOnIfTheUserAnsweredCorrectly(answeredCorrectly, correctAnswer);
 
-            saveAnswer(user, trivia, answer, answeredCorrectly);
+            saveAnswer(userResource, triviaResource, answer, answeredCorrectly);
             printMessageDependingOnTheRemainingQuestions(numberOfQuestion, triviaListSize);
         }
     }
@@ -91,12 +95,12 @@ public class TriviaQuizService implements QuizService {
         return result;
     }
 
-    private void printTrivia(int numberOfQuestion, Trivia trivia, List<PossibleAnswer> possibleAnswers) {
+    private void printTrivia(int numberOfQuestion, TriviaResource triviaResource, List<PossibleAnswer> possibleAnswers) {
         System.out.printf("Question #%d%n", numberOfQuestion);
-        System.out.printf("Question: %s%n", trivia.getQuestion());
-        System.out.printf("Category: %s%n", trivia.getCategory());
-        System.out.printf("Type: %s%n", trivia.getType());
-        System.out.printf("Difficulty: %s%n", trivia.getDifficulty());
+        System.out.printf("Question: %s%n", triviaResource.getQuestion());
+        System.out.printf("Category: %s%n", triviaResource.getCategory());
+        System.out.printf("Type: %s%n", triviaResource.getType());
+        System.out.printf("Difficulty: %s%n", triviaResource.getDifficulty());
         System.out.println("Possible answers:");
         possibleAnswers.forEach(System.out::println);
     }
@@ -132,9 +136,9 @@ public class TriviaQuizService implements QuizService {
         }
     }
 
-    private void saveAnswer(User user, Trivia trivia, String selectedAnswer, boolean answeredCorrectly) {
+    private void saveAnswer(UserResource userResource, TriviaResource triviaResource, String selectedAnswer, boolean answeredCorrectly) {
         System.out.println("Saving your answer to the database.");
-        answerService.saveAnswer(new Answer(user, trivia, selectedAnswer, answeredCorrectly));
+        answerService.saveAnswer(new Answer(UserUtil.transformUserResourceToUser(userResource), OpenTriviaDatabaseUtil.transformTriviaResourceToTrivia(triviaResource), selectedAnswer, answeredCorrectly));
     }
 
     private void printMessageDependingOnTheRemainingQuestions(int indexOfQuestion, int triviaListSize) {
