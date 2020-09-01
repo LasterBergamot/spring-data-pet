@@ -1,18 +1,16 @@
 package com.pet.springdata.domain.quiz.impl;
 
+import com.pet.springdata.domain.answer.AnswerService;
+import com.pet.springdata.domain.answer.model.PossibleAnswer;
+import com.pet.springdata.domain.facade.OpenTriviaDatabaseFacade;
+import com.pet.springdata.domain.quiz.QuizService;
 import com.pet.springdata.domain.trivia.model.resource.TriviaResource;
 import com.pet.springdata.domain.trivia.util.OpenTriviaDatabaseUtil;
+import com.pet.springdata.domain.user.UserService;
 import com.pet.springdata.domain.user.model.resource.UserResource;
 import com.pet.springdata.domain.user.util.UserUtil;
 import com.pet.springdata.repository.answer.model.Answer;
-import com.pet.springdata.domain.answer.model.PossibleAnswer;
-import com.pet.springdata.repository.trivia.model.Trivia;
 import com.pet.springdata.repository.user.model.Name;
-import com.pet.springdata.repository.user.model.User;
-import com.pet.springdata.domain.answer.AnswerService;
-import com.pet.springdata.domain.facade.OpenTriviaDatabaseFacade;
-import com.pet.springdata.domain.quiz.QuizService;
-import com.pet.springdata.domain.user.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

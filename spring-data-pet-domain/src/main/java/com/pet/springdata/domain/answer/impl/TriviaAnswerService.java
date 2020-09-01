@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.pet.springdata.domain.util.Constants.CACHE_NAME_ANSWER_CACHE;
 import static com.pet.springdata.domain.util.Constants.KEY_ANSWERED_CORRECTLY;
 import static com.pet.springdata.domain.util.Constants.KEY_USER;
 import static com.pet.springdata.domain.util.Constants.SYMBOL_COLON_EQUAL;
@@ -27,7 +28,7 @@ import static com.pet.springdata.domain.util.Constants.SYMBOL_COLON_EQUAL;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Cacheable(value = "answerCache")
+@Cacheable(value = CACHE_NAME_ANSWER_CACHE)
 public class TriviaAnswerService implements AnswerService {
 
     @NonNull

@@ -9,6 +9,13 @@ import lombok.Setter;
 
 import java.util.List;
 
+import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_CATEGORY;
+import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_CORRECT_ANSWER;
+import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_DIFFICULTY;
+import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_INCORRECT_ANSWERS;
+import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_QUESTION;
+import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_TYPE;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -33,8 +40,9 @@ public class OpenTriviaDatabaseResult {
     private List<String> incorrectAnswers;
 
     @JsonCreator
-    public OpenTriviaDatabaseResult(@JsonProperty("category") String category, @JsonProperty("type") String type, @JsonProperty("difficulty") String difficulty, @JsonProperty("question") String question,
-                                    @JsonProperty("correct_answer") String correctAnswer, @JsonProperty("incorrect_answers") List<String> incorrectAnswers) {
+    public OpenTriviaDatabaseResult(@JsonProperty(JSON_PROPERTY_CATEGORY) String category, @JsonProperty(JSON_PROPERTY_TYPE) String type,
+                                    @JsonProperty(JSON_PROPERTY_DIFFICULTY) String difficulty, @JsonProperty(JSON_PROPERTY_QUESTION) String question,
+                                    @JsonProperty(JSON_PROPERTY_CORRECT_ANSWER) String correctAnswer, @JsonProperty(JSON_PROPERTY_INCORRECT_ANSWERS) List<String> incorrectAnswers) {
         this.category = category;
         this.type = type;
         this.difficulty = difficulty;

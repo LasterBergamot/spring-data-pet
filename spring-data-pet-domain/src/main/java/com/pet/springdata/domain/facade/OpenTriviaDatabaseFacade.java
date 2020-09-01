@@ -2,7 +2,6 @@ package com.pet.springdata.domain.facade;
 
 import com.pet.springdata.domain.trivia.model.OpenTriviaDatabaseResult;
 import com.pet.springdata.domain.trivia.model.resource.TriviaResource;
-import com.pet.springdata.repository.trivia.model.Trivia;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

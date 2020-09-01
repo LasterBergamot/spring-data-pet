@@ -1,11 +1,11 @@
 package com.pet.springdata.domain.user.impl;
 
+import com.pet.springdata.domain.user.UserService;
 import com.pet.springdata.domain.user.model.resource.UserResource;
 import com.pet.springdata.domain.user.util.UserUtil;
+import com.pet.springdata.repository.user.UserRepository;
 import com.pet.springdata.repository.user.model.Name;
 import com.pet.springdata.repository.user.model.User;
-import com.pet.springdata.repository.user.UserRepository;
-import com.pet.springdata.domain.user.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Set;
 
+import static com.pet.springdata.domain.util.Constants.CACHE_NAME_USER_CACHE;
+import static com.pet.springdata.domain.util.Constants.DEFAULT_FIRST_NAME;
+import static com.pet.springdata.domain.util.Constants.DEFAULT_LAST_NAME;
+import static com.pet.springdata.domain.util.Constants.DEFAULT_MIDDLE_NAME;
+import static com.pet.springdata.domain.util.Constants.DEFAULT_PHONE_NUMBER;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Cacheable(value = "userCache")
+@Cacheable(value = CACHE_NAME_USER_CACHE)
 public class TriviaUserService implements UserService {
 
     @NonNull
@@ -56,6 +62,6 @@ public class TriviaUserService implements UserService {
     }
 
     private User getDefaultUser() {
-        return new User(new Name("defaultFirstName", "defaultMiddleName", "defaultLastName"), Set.of("06808888888"));
+        return new User(new Name(DEFAULT_FIRST_NAME, DEFAULT_MIDDLE_NAME, DEFAULT_LAST_NAME), Set.of(DEFAULT_PHONE_NUMBER));
     }
 }

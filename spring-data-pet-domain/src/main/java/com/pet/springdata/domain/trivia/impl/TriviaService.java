@@ -18,10 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.List;
 
+import static com.pet.springdata.domain.util.Constants.CACHE_NAME_TRIVIA_CACHE;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Cacheable(value = "triviaCache")
+@Cacheable(value = CACHE_NAME_TRIVIA_CACHE)
 public class TriviaService implements ITriviaService {
 
     @NonNull
