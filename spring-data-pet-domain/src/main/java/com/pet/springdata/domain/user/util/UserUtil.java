@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -25,7 +26,7 @@ public class UserUtil {
         return UserResource.builder()
                 .id(user.getId())
                 .name(user.getName())
-                .phoneNumbers(user.getPhoneNumbers())
+                .phoneNumbers(new HashSet<>(user.getPhoneNumbers()))
                 .build();
     }
 

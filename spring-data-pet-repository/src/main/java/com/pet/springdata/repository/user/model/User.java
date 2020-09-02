@@ -67,7 +67,7 @@ public class User implements Serializable {
     @IndexedEmbedded
     private Name name;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(name = COLLECTION_TABLE_NAME_PHONE_NUMBERS, joinColumns = @JoinColumn(name = JOIN_COLUMN_USER_ID))
     @Column(name = COLUMN_NAME_PHONE_NUMBER)
     @NonNull
