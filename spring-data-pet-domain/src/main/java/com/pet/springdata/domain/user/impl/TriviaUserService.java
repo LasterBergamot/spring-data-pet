@@ -2,7 +2,7 @@ package com.pet.springdata.domain.user.impl;
 
 import com.pet.springdata.domain.user.UserService;
 import com.pet.springdata.domain.user.model.resource.UserResource;
-import com.pet.springdata.domain.user.util.UserUtil;
+import com.pet.springdata.domain.user.util.UserMapper;
 import com.pet.springdata.repository.user.UserRepository;
 import com.pet.springdata.repository.user.model.Name;
 import com.pet.springdata.repository.user.model.User;
@@ -32,6 +32,9 @@ public class TriviaUserService implements UserService {
     @NonNull
     private final UserRepository userRepository;
 
+    @NonNull
+    private final UserMapper userMapper;
+
     @Override
     @Transactional
     public ResponseEntity<UserResource> saveUser(String firstName, String middleName, String lastName, String phoneNumber) {
@@ -40,7 +43,7 @@ public class TriviaUserService implements UserService {
         Set<String> phoneNumbers = Set.of(phoneNumber);
         User user = userRepository.save(new User(name, phoneNumbers));
 
-        return ResponseEntity.ok(UserUtil.transformUserToUserResource(user));
+        return ResponseEntity.ok(userMapper.transformUserToUserResource(user));
     }
 
     @Override
@@ -51,14 +54,14 @@ public class TriviaUserService implements UserService {
                 .findById(id)
                 .orElse(getDefaultUser());
 
-        return UserUtil.transformUserToUserResource(user);
+        return userMapper.transformUserToUserResource(user);
     }
 
     @Override
     @Transactional
     public List<UserResource> findAllUser() {
         log.info("Finding all User.");
-        return UserUtil.transformUserListToUserResourceList(userRepository.findAll());
+        return userMapper.transformUserListToUserResourceList(userRepository.findAll());
     }
 
     private User getDefaultUser() {

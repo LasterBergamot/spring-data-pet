@@ -4,25 +4,23 @@ import com.pet.springdata.domain.user.model.resource.UserResource;
 import com.pet.springdata.repository.user.model.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserUtil {
+public class UserMapper {
 
-    public static List<UserResource> transformUserListToUserResourceList(List<User> userList) {
-        List<UserResource> userResourceList = new ArrayList<>();
-
-        for (User user : userList) {
-            userResourceList.add(UserUtil.transformUserToUserResource(user));
-        }
-
-        return userResourceList;
+    public List<UserResource> transformUserListToUserResourceList(List<User> userList) {
+        return userList.stream()
+                .map(this::transformUserToUserResource)
+                .collect(Collectors.toList());
     }
 
-    public static UserResource transformUserToUserResource(User user) {
+    public UserResource transformUserToUserResource(User user) {
         return UserResource.builder()
                 .id(user.getId())
                 .name(user.getName())
@@ -30,7 +28,7 @@ public class UserUtil {
                 .build();
     }
 
-    public static User transformUserResourceToUser(UserResource userResource) {
+    public User transformUserResourceToUser(UserResource userResource) {
         return User.builder()
                 .id(userResource.getId())
                 .name(userResource.getName())

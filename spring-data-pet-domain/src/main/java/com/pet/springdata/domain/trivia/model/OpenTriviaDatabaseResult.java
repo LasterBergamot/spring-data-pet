@@ -2,6 +2,7 @@ package com.pet.springdata.domain.trivia.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,6 +20,7 @@ import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_TYPE;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class OpenTriviaDatabaseResult {
 
     @NonNull

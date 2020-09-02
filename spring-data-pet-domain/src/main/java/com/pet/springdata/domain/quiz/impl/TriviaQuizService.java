@@ -5,10 +5,10 @@ import com.pet.springdata.domain.answer.model.PossibleAnswer;
 import com.pet.springdata.domain.facade.OpenTriviaDatabaseFacade;
 import com.pet.springdata.domain.quiz.QuizService;
 import com.pet.springdata.domain.trivia.model.resource.TriviaResource;
-import com.pet.springdata.domain.trivia.util.OpenTriviaDatabaseUtil;
+import com.pet.springdata.domain.trivia.util.OpenTriviaDatabaseMapper;
 import com.pet.springdata.domain.user.UserService;
 import com.pet.springdata.domain.user.model.resource.UserResource;
-import com.pet.springdata.domain.user.util.UserUtil;
+import com.pet.springdata.domain.user.util.UserMapper;
 import com.pet.springdata.repository.answer.model.Answer;
 import com.pet.springdata.repository.user.model.Name;
 import lombok.NonNull;
@@ -32,6 +32,12 @@ public class TriviaQuizService implements QuizService {
 
     @NonNull
     private final AnswerService answerService;
+
+    @NonNull
+    private final UserMapper userMapper;
+
+    @NonNull
+    private final OpenTriviaDatabaseMapper openTriviaDatabaseMapper;
 
     @Override
     public void play() {
@@ -136,7 +142,7 @@ public class TriviaQuizService implements QuizService {
 
     private void saveAnswer(UserResource userResource, TriviaResource triviaResource, String selectedAnswer, boolean answeredCorrectly) {
         System.out.println("Saving your answer to the database.");
-        answerService.saveAnswer(new Answer(UserUtil.transformUserResourceToUser(userResource), OpenTriviaDatabaseUtil.transformTriviaResourceToTrivia(triviaResource), selectedAnswer, answeredCorrectly));
+        answerService.saveAnswer(new Answer(userMapper.transformUserResourceToUser(userResource), openTriviaDatabaseMapper.transformTriviaResourceToTrivia(triviaResource), selectedAnswer, answeredCorrectly));
     }
 
     private void printMessageDependingOnTheRemainingQuestions(int indexOfQuestion, int triviaListSize) {

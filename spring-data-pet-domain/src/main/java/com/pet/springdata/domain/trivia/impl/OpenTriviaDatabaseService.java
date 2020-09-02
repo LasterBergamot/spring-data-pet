@@ -4,7 +4,7 @@ import com.pet.springdata.domain.trivia.IOpenTriviaDatabaseService;
 import com.pet.springdata.domain.trivia.model.OpenTriviaDatabaseResponse;
 import com.pet.springdata.domain.trivia.model.OpenTriviaDatabaseResult;
 import com.pet.springdata.domain.trivia.model.OpenTriviaDatabaseToken;
-import com.pet.springdata.domain.trivia.util.OpenTriviaDatabaseUtil;
+import com.pet.springdata.domain.trivia.util.OpenTriviaDatabaseMapper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +30,15 @@ public class OpenTriviaDatabaseService implements IOpenTriviaDatabaseService {
     @NonNull
     private final RestTemplate restTemplate;
 
+    @NonNull
+    private final OpenTriviaDatabaseMapper openTriviaDatabaseMapper;
+
     @Override
     public ResponseEntity<List<OpenTriviaDatabaseResult>> getTrivia(int numberOfTrivia) {
         log.info("Getting {} Trivia.", numberOfTrivia);
         List<OpenTriviaDatabaseResult> resultsFromOpenTriviaDatabase = getResultsDependingOnTheNumberOfMaximumRequests(numberOfTrivia, getTokenFromOpenTriviaDatabase());
 
-        return ResponseEntity.ok(OpenTriviaDatabaseUtil.unescapeHtmlTagsOfAllTrivia(resultsFromOpenTriviaDatabase));
+        return ResponseEntity.ok(openTriviaDatabaseMapper.unescapeHtmlTagsOfAllTrivia(resultsFromOpenTriviaDatabase));
     }
 
     public String getTokenFromOpenTriviaDatabase() {
