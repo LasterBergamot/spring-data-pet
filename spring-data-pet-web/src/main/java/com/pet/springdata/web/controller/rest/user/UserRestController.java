@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,7 @@ public class UserRestController {
     @NonNull
     private final UserService userService;
 
-    @GetMapping(REQUEST_MAPPING_SAVE_USER)
+    @PostMapping(REQUEST_MAPPING_SAVE_USER)
     public ResponseEntity<UserResource> saveUser(@RequestParam(name = REQUEST_PARAM_FIRST_NAME) String firstName, @RequestParam(name = REQUEST_PARAM_MIDDLE_NAME) String middleName,
                                                  @RequestParam(name = REQUEST_PARAM_LAST_NAME) String lastName, @RequestParam(name = REQUEST_PARAM_PHONE_NUMBER) String phoneNumber) {
         log.info("Saving User with firstName: {}, middleName: {}, lastName: {}, and phoneNumber: {}.", firstName, middleName, lastName, phoneNumber);
