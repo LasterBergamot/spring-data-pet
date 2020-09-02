@@ -2,7 +2,7 @@ package com.pet.springdata.domain.answer.impl;
 
 import com.pet.springdata.domain.answer.AnswerService;
 import com.pet.springdata.domain.answer.model.resource.AnswerResource;
-import com.pet.springdata.domain.answer.util.AnswerUtil;
+import com.pet.springdata.domain.answer.util.AnswerMapper;
 import com.pet.springdata.repository.answer.AnswerRepository;
 import com.pet.springdata.repository.answer.model.Answer;
 import com.pet.springdata.repository.answer.specification.AnswerSpecification;
@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.pet.springdata.domain.util.Constants.CACHE_NAME_ANSWER_CACHE;
 import static com.pet.springdata.domain.util.Constants.KEY_ANSWERED_CORRECTLY;
 import static com.pet.springdata.domain.util.Constants.KEY_USER;
 import static com.pet.springdata.domain.util.Constants.SYMBOL_COLON_EQUAL;
@@ -27,17 +28,20 @@ import static com.pet.springdata.domain.util.Constants.SYMBOL_COLON_EQUAL;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Cacheable(value = "answerCache")
+@Cacheable(value = CACHE_NAME_ANSWER_CACHE)
 public class TriviaAnswerService implements AnswerService {
 
     @NonNull
     private final AnswerRepository answerRepository;
 
+    @NonNull
+    private final AnswerMapper answerMapper;
+
     @Override
     @Transactional
     public AnswerResource saveAnswer(Answer answer) {
         log.info("Saving Answer: {}", answer);
-        return AnswerUtil.transformAnswerToAnswerResource(answerRepository.save(answer));
+        return answerMapper.transformAnswerToAnswerResource(answerRepository.save(answer));
     }
 
     @Override
@@ -45,7 +49,7 @@ public class TriviaAnswerService implements AnswerService {
     @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
     public List<AnswerResource> getAllAnswers() {
         log.info("Getting all Answers.");
-        return AnswerUtil.transformAnswerListToAnswerResourceList(answerRepository.findAll());
+        return answerMapper.transformAnswerListToAnswerResourceList(answerRepository.findAll());
     }
 
     @Override
@@ -57,7 +61,7 @@ public class TriviaAnswerService implements AnswerService {
 
         List<Answer> answerList = answerRepository.findAll(answerSpecification);
 
-        return ResponseEntity.ok(AnswerUtil.transformAnswerListToAnswerResourceList(answerList));
+        return ResponseEntity.ok(answerMapper.transformAnswerListToAnswerResourceList(answerList));
     }
 
     @Override
@@ -69,7 +73,7 @@ public class TriviaAnswerService implements AnswerService {
 
         List<Answer> answerList = answerRepository.findAll(answerSpecification);
 
-        return ResponseEntity.ok(AnswerUtil.transformAnswerListToAnswerResourceList(answerList));
+        return ResponseEntity.ok(answerMapper.transformAnswerListToAnswerResourceList(answerList));
     }
 
     @Override
@@ -84,6 +88,6 @@ public class TriviaAnswerService implements AnswerService {
 
         List<Answer> answerList = answerRepository.findAll(Specification.where(answerSpecificationAnsweredCorrectly).and(answerSpecificationUserId));
 
-        return ResponseEntity.ok(AnswerUtil.transformAnswerListToAnswerResourceList(answerList));
+        return ResponseEntity.ok(answerMapper.transformAnswerListToAnswerResourceList(answerList));
     }
 }

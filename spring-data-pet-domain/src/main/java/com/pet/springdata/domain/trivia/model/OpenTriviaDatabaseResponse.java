@@ -8,6 +8,9 @@ import lombok.NonNull;
 
 import java.util.List;
 
+import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_RESPONSE_CODE;
+import static com.pet.springdata.domain.util.Constants.JSON_PROPERTY_RESULTS;
+
 @NoArgsConstructor
 @Getter
 public class OpenTriviaDatabaseResponse {
@@ -19,7 +22,7 @@ public class OpenTriviaDatabaseResponse {
     private List<OpenTriviaDatabaseResult> results;
 
     @JsonCreator
-    public OpenTriviaDatabaseResponse(@JsonProperty("response_code") String responseCode, @JsonProperty("results") List<OpenTriviaDatabaseResult> results) {
+    public OpenTriviaDatabaseResponse(@JsonProperty(JSON_PROPERTY_RESPONSE_CODE) String responseCode, @JsonProperty(JSON_PROPERTY_RESULTS) List<OpenTriviaDatabaseResult> results) {
         this.responseCode = responseCode;
         this.results = results;
     }

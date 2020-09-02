@@ -1,7 +1,6 @@
 package com.pet.springdata.domain.user;
 
 import com.pet.springdata.domain.user.model.resource.UserResource;
-import com.pet.springdata.repository.user.model.User;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

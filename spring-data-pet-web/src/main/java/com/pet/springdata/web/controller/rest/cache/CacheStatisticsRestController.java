@@ -1,5 +1,8 @@
 package com.pet.springdata.web.controller.rest.cache;
 
+import com.pet.springdata.repository.answer.model.Answer;
+import com.pet.springdata.repository.trivia.model.Trivia;
+import com.pet.springdata.repository.user.model.User;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +19,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.pet.springdata.web.util.Constants.KEY_DELETE_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_ENTITY_NAME;
+import static com.pet.springdata.web.util.Constants.KEY_FETCH_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_HIT_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_INSERT_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_LOAD_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_MISS_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_PUT_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_REGION_NAME;
+import static com.pet.springdata.web.util.Constants.KEY_SECOND_LEVEL_CACHE_HIT_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_SECOND_LEVEL_CACHE_MISS_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_SECOND_LEVEL_CACHE_PUT_COUNT;
+import static com.pet.springdata.web.util.Constants.KEY_UPDATE_COUNT;
+import static com.pet.springdata.web.util.Constants.REQUEST_MAPPING_CACHE;
+import static com.pet.springdata.web.util.Constants.REQUEST_MAPPING_FIRST_LEVEL;
+import static com.pet.springdata.web.util.Constants.REQUEST_MAPPING_SECOND_LEVEL;
+
 @RestController
-@RequestMapping("/cache")
+@RequestMapping(REQUEST_MAPPING_CACHE)
 @RequiredArgsConstructor
 @Slf4j
 public class CacheStatisticsRestController {
@@ -25,12 +45,10 @@ public class CacheStatisticsRestController {
     @NonNull
     private final EntityManager entityManager;
 
-    @GetMapping("/firstLevel")
+    @GetMapping(REQUEST_MAPPING_FIRST_LEVEL)
     public List<Map<String, String>> getFirstLeveCacheStatistics() {
         return getEntityStatistics(
-                List.of(
-                        "com.pet.springdata.repository.user.model.User", "com.pet.springdata.repository.trivia.model.Trivia", "com.pet.springdata.repository.answer.model.Answer"
-                )
+                List.of(User.class.getName(), Trivia.class.getName(), Answer.class.getName())
         );
     }
 
@@ -39,35 +57,38 @@ public class CacheStatisticsRestController {
     }
 
     private Map<String, String> createMapFromEntity(String entityName) {
-        Session session = entityManager.unwrap(Session.class);
-        SessionFactory sessionFactory = session.getSessionFactory();
-        Statistics statistics = sessionFactory.getStatistics();
+        Statistics statistics = getStatistics();
         EntityStatistics entityStatistics = statistics.getEntityStatistics(entityName);
 
         return Map.of(
-                "entityName", entityName,
-                "hitCount", String.valueOf(entityStatistics.getCacheHitCount()),
-                "missCount", String.valueOf(entityStatistics.getCacheMissCount()),
-                "putCount", String.valueOf(entityStatistics.getCachePutCount()),
-                "regionName", String.valueOf(entityStatistics.getCacheRegionName()),
-                "deleteCount", String.valueOf(entityStatistics.getDeleteCount()),
-                "insertCount", String.valueOf(entityStatistics.getInsertCount()),
-                "updateCount", String.valueOf(entityStatistics.getUpdateCount()),
-                "loadCount", String.valueOf(entityStatistics.getLoadCount()),
-                "fetchCount", String.valueOf(entityStatistics.getFetchCount())
+                KEY_ENTITY_NAME, entityName,
+                KEY_HIT_COUNT, String.valueOf(entityStatistics.getCacheHitCount()),
+                KEY_MISS_COUNT, String.valueOf(entityStatistics.getCacheMissCount()),
+                KEY_PUT_COUNT, String.valueOf(entityStatistics.getCachePutCount()),
+                KEY_REGION_NAME, String.valueOf(entityStatistics.getCacheRegionName()),
+                KEY_DELETE_COUNT, String.valueOf(entityStatistics.getDeleteCount()),
+                KEY_INSERT_COUNT, String.valueOf(entityStatistics.getInsertCount()),
+                KEY_UPDATE_COUNT, String.valueOf(entityStatistics.getUpdateCount()),
+                KEY_LOAD_COUNT, String.valueOf(entityStatistics.getLoadCount()),
+                KEY_FETCH_COUNT, String.valueOf(entityStatistics.getFetchCount())
         );
     }
 
-    @GetMapping("/secondLevel")
-    public Map<String, Long> getSecondLevelCacheStatistics() {
+    private Statistics getStatistics() {
         Session session = entityManager.unwrap(Session.class);
         SessionFactory sessionFactory = session.getSessionFactory();
-        Statistics statistics = sessionFactory.getStatistics();
+
+        return sessionFactory.getStatistics();
+    }
+
+    @GetMapping(REQUEST_MAPPING_SECOND_LEVEL)
+    public Map<String, Long> getSecondLevelCacheStatistics() {
+        Statistics statistics = getStatistics();
 
         return Map.of(
-                "secondLevelCacheHitCount", statistics.getSecondLevelCacheHitCount(),
-                "secondLevelCacheMissCount", statistics.getSecondLevelCacheMissCount(),
-                "secondLevelCachePutCount", statistics.getSecondLevelCachePutCount()
+                KEY_SECOND_LEVEL_CACHE_HIT_COUNT, statistics.getSecondLevelCacheHitCount(),
+                KEY_SECOND_LEVEL_CACHE_MISS_COUNT, statistics.getSecondLevelCacheMissCount(),
+                KEY_SECOND_LEVEL_CACHE_PUT_COUNT, statistics.getSecondLevelCachePutCount()
         );
     }
 }

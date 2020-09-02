@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import static com.pet.springdata.repository.util.Constants.CLASS_PATH_RESOURCE_EHCACHE_XML;
+
 @Configuration
 @EnableCaching
 public class EHCacheConfig {
@@ -14,7 +16,7 @@ public class EHCacheConfig {
     @Bean
     public EhCacheManagerFactoryBean ehCacheManagerFactory() {
         EhCacheManagerFactoryBean ehCacheManagerFactoryBean = new EhCacheManagerFactoryBean();
-        ehCacheManagerFactoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
+        ehCacheManagerFactoryBean.setConfigLocation(new ClassPathResource(CLASS_PATH_RESOURCE_EHCACHE_XML));
         ehCacheManagerFactoryBean.setShared(true);
 
         return ehCacheManagerFactoryBean;

@@ -29,8 +29,19 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
 
+import static com.pet.springdata.repository.util.Constants.ATTRIBUTE_OVERRIDE_NAME_FIRST_NAME;
+import static com.pet.springdata.repository.util.Constants.ATTRIBUTE_OVERRIDE_NAME_LAST_NAME;
+import static com.pet.springdata.repository.util.Constants.ATTRIBUTE_OVERRIDE_NAME_MIDDLE_NAME;
+import static com.pet.springdata.repository.util.Constants.COLLECTION_TABLE_NAME_PHONE_NUMBERS;
+import static com.pet.springdata.repository.util.Constants.COLUMN_NAME_FIRST_NAME;
+import static com.pet.springdata.repository.util.Constants.COLUMN_NAME_LAST_NAME;
+import static com.pet.springdata.repository.util.Constants.COLUMN_NAME_MIDDLE_NAME;
+import static com.pet.springdata.repository.util.Constants.COLUMN_NAME_PHONE_NUMBER;
+import static com.pet.springdata.repository.util.Constants.JOIN_COLUMN_USER_ID;
+import static com.pet.springdata.repository.util.Constants.TABLE_NAME_USERS;
+
 @Entity
-@Table(name = "users")
+@Table(name = TABLE_NAME_USERS)
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -48,17 +59,17 @@ public class User implements Serializable {
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "firstName", column = @Column(name = "first_name")),
-            @AttributeOverride(name = "middleName", column = @Column(name = "middle_name")),
-            @AttributeOverride(name = "lastName", column = @Column(name = "last_name"))
+            @AttributeOverride(name = ATTRIBUTE_OVERRIDE_NAME_FIRST_NAME, column = @Column(name = COLUMN_NAME_FIRST_NAME)),
+            @AttributeOverride(name = ATTRIBUTE_OVERRIDE_NAME_MIDDLE_NAME, column = @Column(name = COLUMN_NAME_MIDDLE_NAME)),
+            @AttributeOverride(name = ATTRIBUTE_OVERRIDE_NAME_LAST_NAME, column = @Column(name = COLUMN_NAME_LAST_NAME))
     })
     @NonNull
     @IndexedEmbedded
     private Name name;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "phone_numbers", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "phone_number")
+    @ElementCollection
+    @CollectionTable(name = COLLECTION_TABLE_NAME_PHONE_NUMBERS, joinColumns = @JoinColumn(name = JOIN_COLUMN_USER_ID))
+    @Column(name = COLUMN_NAME_PHONE_NUMBER)
     @NonNull
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @IndexedEmbedded
