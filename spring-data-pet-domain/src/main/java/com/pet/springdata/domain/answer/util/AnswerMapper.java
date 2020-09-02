@@ -4,24 +4,22 @@ import com.pet.springdata.domain.answer.model.resource.AnswerResource;
 import com.pet.springdata.repository.answer.model.Answer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Component
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class AnswerUtil {
+public class AnswerMapper {
 
-    public static List<AnswerResource> transformAnswerListToAnswerResourceList(List<Answer> answerList) {
-        List<AnswerResource> answerResourceList = new ArrayList<>();
-
-        for (Answer answer : answerList) {
-            answerResourceList.add(transformAnswerToAnswerResource(answer));
-        }
-
-        return answerResourceList;
+    public List<AnswerResource> transformAnswerListToAnswerResourceList(List<Answer> answerList) {
+        return answerList.stream()
+                .map(this::transformAnswerToAnswerResource)
+                .collect(Collectors.toList());
     }
 
-    public static AnswerResource transformAnswerToAnswerResource(Answer answer) {
+    public AnswerResource transformAnswerToAnswerResource(Answer answer) {
         return AnswerResource.builder()
                 .id(answer.getId())
                 .user(answer.getUser())
